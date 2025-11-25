@@ -1,0 +1,2403 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SFX Fluid Calculator</title>
+
+<!-- PWA Meta Tags -->
+<meta name="application-name" content="SFX Fluid Calculator"/>
+<meta name="description" content="Professional hydraulic and pneumatic calculations for special effects work"/>
+<meta name="theme-color" content="#2563eb"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+<meta name="apple-mobile-web-app-title" content="SFX Fluid Calc"/>
+
+<!-- Icons for PWA -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3e%3c!-- Hydraulic Cylinder Body --%3e%3crect x='20' y='35' width='50' height='30' fill='%23E5E7EB' stroke='%23374151' stroke-width='2' rx='3'/%3e%3c!-- Piston Rod --%3e%3crect x='5' y='45' width='25' height='10' fill='%239CA3AF' stroke='%23374151' stroke-width='1.5'/%3e%3c!-- Rod End --%3e%3ccircle cx='5' cy='50' r='8' fill='%236B7280' stroke='%23374151' stroke-width='1.5'/%3e%3c!-- Cylinder End Cap --%3e%3crect x='70' y='35' width='8' height='30' fill='%23D1D5DB' stroke='%23374151' stroke-width='1.5'/%3e%3c!-- Port Connections --%3e%3ccircle cx='35' cy='30' r='3' fill='%23EF4444' stroke='%23DC2626' stroke-width='1'/%3e%3ccircle cx='55' cy='30' r='3' fill='%233B82F6' stroke='%232563EB' stroke-width='1'/%3e%3c!-- Hydraulic Lines --%3e%3cline x1='35' y1='30' x2='35' y2='15' stroke='%23DC2626' stroke-width='2'/%3e%3cline x1='55' y1='30' x2='55' y2='15' stroke='%232563EB' stroke-width='2'/%3e%3c!-- Mounting Points --%3e%3ccircle cx='25' cy='50' r='2' fill='%23374151'/%3e%3ccircle cx='65' cy='50' r='2' fill='%23374151'/%3e%3c/svg%3e"/>
+
+<!-- Apple Touch Icons -->
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAABDPSURBVHhe7Z13rBVFG4eJJpZEY/AvY2/YsYHYe0HFTgx2jRU1GgugsUajwWBENLGhxmgUFMWosfDZu4KCijViomLvHaXofjzjzL3nnjtnZ87hHu/uzu9J3lB2d7bMPLMzs7N7+vzzzz+jFsZkhSLFQID/ZUIkCgJMtn8XIjkkgEgaCSCSRgKIpJEAImkkgEgaCSCSRgKIpJEAImkkgEgaCSCSRgKIpJEAImkkgEgaCSCSRgKIpJEAImkkgEgaCSCSRgKIpJEAImkkgEgaCSCSRgKIpJEAImkkgEgaCSCSRgKIpJEAImkkgEgaCSCSRgKIpJEAImkkgEgaCSCSRgKIpJEAImkkgEgaCSCSRgKIpJEAImkkgEgaCSCSRgKIpCmEALNmzcrGjh3bETNmzLBLOp k/f342fvz4jnUmTJhglwiIuYYx66RGIQSgMPfp06cjRo8ebZd0MmfOnGypppbqWKdfv352iYCYaxizTmoUQoDJkyd3yZhx48bZJZ388ccf2UorrdSxzhZbbGGXCIi5hjHrpIYEqAgSoDUkQEWQAK0hASqCBGgNCVARJEBrFEKABx54IJgx9QIMGjTILhEQcw3rBWBULXXaIsCC BQtMgY2NiRMndsmYGAEGDBjQLZ2UI+Ya1gtw7LHHmv9rJmbOnGlTqwZtEeDRRx81hTU2ll9++S4ZEyPAEkss0S2dlCPmGlKAa9dpJYYPH25TqwZtEWDSpEneixcbMQIo8qNdApx55pk2tWrQFgEW9UKPGTPGptQJAiy33HLe9RXdw3cN6x+EtRISIIKQADRfBg4caEZyfEF7tp65c+dmQ4YM8a7fzujbt6/3HFqNFVZYwbufng7fNWQqBHeGvOjfv7/3uF1IgAhCAqy66qp2zeJz0EEHec+h1RgxYoRNuZgMGzbMe9wuJEAEIQFWWWWVbN68eXbt4nPggQd6z6HVOOuss2zKxeSAAw7wHrcLCRBBjAB//fWXXbvYhApEs1H0AiQBegAJ0DgkQLGQAAEkQNeQABFIgMYhAYqFBAggAbqGBIhAAjQOCVAsJECAnhZg5MiRNuViMnToUO9xuyjy8TdDZAQK0NMC HH/88dns2bMLG4MHD/Yetwteje8TdDYlG450IAMSIICeFmDxxRfPllxyyMLG4osv5j1uF0U7/unTp9ucag0JEKCnBVD0bEybNs3mVGtIgAASoNjx2muv2ZxqDQkQQAIUOyRAmJEAxQ4J0GYkQLFDArQZCVDskABtRgIUOyRAm5EAxQ4J0GYkQLFDArQZCVDsmDp1qs2p1pAAARpeAMqXLV+1WWWWVjuMWOZZZawrZNxVsRCRBg2rRpNqdaQwIE6G0BVLjX77rrLrvF0EkQC9A60LxQZ EixNtvv21zqjUkQIDeFoA2O+//OUvdyEBOl3AOIwC9KYAtPz 5e1lwgQAnWu9ACMBbpbw08/bLTqROO41dYPjXBnO/W6ATXFf8qcaQ0JEKCnBaDZcsstZNydNlx94zHZ4ZGOG97EaBxcB3DcbNNd0R4CjBu3pjH1bCwsNI5DLLgLU/u15bLLHbz1n37+edZjx49siuuuMLu2S4W5h2QboREShq/9z64HCRCaI+O6hJoySICfYz7HLH2ek3BcXPX+8//ND7bXW7Yy4WNd6TmGtoIEqKBxASwNq/7IG0eXAe6x dU3ftmfZnO9Fkd9ukNwsY1LjZsT7Xf/tEJHRbgh7VYeOB+SRJg0qFBAqy00lp2zeIz6KCdcOedV9dE1kFjZ5xj32T54+aYxXJ YoVgwYMMCmUk169Ojh300JIgAgkQNeQABFIgMYhAYqFBAjQ0wIMGjTIplxMEo M9bu6hNdfuHMuJMhQEwJ0NMC1H7tqlVGjpxpU6sGvSXA0KFDbWrdaEYBCe0GWL6O mQ4bNCjbbbMNN9+e3blnQHKOdbrvnr2VvC3D77LHbLYnKgSfAss7cN6Jdddtd0LZjPU3R4pqRJSFRzXAPydzHxRe5h72dD+WUcO/bQe z2JZd2xw0zXmBQBDM8x3CMkqQ1J7wL0hgDNnm+MACeffLLdsj1cffXV2eqrr26O27cPF1w3OpO+T6D0Zp9RwkgAAHLlyzIFCfQ+CuOWXnrpbtI0kgDBCfMxBPb9mhwCFLpX6uT6sPJ/NNUVDBxO0aU0R8E2g7tukQ0ZMSXAL/7wB3ZvvvumtugIdkOSy6+PbXGRMoQPXa/pNJmqTMB1QJDAkqQtL6+uvt8pQ7tEJHBRRq/btFO3dMCONhgNtssW3jReAb76HHPHVmefvbJ77rmH3NX O+663F 8IVNvXy0RwA+d8+SyjgAr8tQG+LAAFnb5tphxxySJf/e+ihh7KhQ4eauxKjQaH90H/j HqNWv5/bX8T95w93HOA3MdOCXBxQrQ0wLQnNhhhx3MOeSdI8u4c/r6TTxUJ/1Qn4NlHAfvHfgqgHpYjn0IXKOYtyf2pAA9fc4x12v33Xc32/u2aRQsZ0QspjIoM6UW4M4778w233xz7/n6gvZ6I3i4T82f1yENBeeHOKeffrrdsj2cf/752RJLLGFqfF8BZ1v6MF999ZVNOYy7M+X1wwgKPf0SkqxMlFoAvu7M3Sf0PAHoA1BQQwW YPmPdl/btNl+w3D1J21kCYnvOm0g9u4VupCQEQIAFEQjZMALRBeF50XCZBBSIDWkAAVQQK0hgSoCBKgNQohwAMPPBDMmHoBBg0aZJcIiLmG9QLwqJbUaYsACxYsMIU1NiZOnNglY2IEGDBgQLd0Uo6Ya1gvwLHHHmv+r5mYOXOmTa0atEWARx991BTW2Fh++eW7ZEyMAEsssUS3dFKOmGtIAa5dp5UYPny4Ta0atEWASZMmeS9ebMQIoMiPdglw5pln2tSqQVsEWNQLPWbMGJtSJwiw3HLLedc XdG9fNew/kFYKyEBIggJQPNl4MCBZiTHF7Rn65k7d242ZMgQ7/rtjL59+3rPodVYYYUVvPvp6fBdQ6ZCcGfIi/79+3uP24UEiCAkwKqrrmrXLD4HHXSwMt6d9hhgxYoRNuZgMGzbMe9wuJEAEIQFWWWWVbN68eXbt4nPggQd6z6HVOOuss2zKxeSAAw7wHrcLCRBBjAB//fWXXbvYhApEs1H0AiQBegAJ0DgkQLGQAAEkQNeQABFIgMYhAYqFBAjQ0wKMHDnSplxMhg4d6j1uF0U7/mZpFgEoQE8LcPzxx2ezZ88ubAwePNh73C6KdvzNIgEiCAGEqCWI8 +GGIFmDZtmlGzKBC85MSWBK0R+g+wQKdfftts2a2eeqpp5ZmH8uIHr7mmGltTu7enLJdMwYO/Kgj3ndYmmXXHbdNdtppZ5NG7WfAfcexxx5r9lEPy0L7yAPB 3ntNZPGnnt1uasgQBuJkzTsw5FCaY+E+NjRAQ0nHgzDcK+IXiTyyGxzCHH97CpFZ/QOdcLwD79AQLUctddd2Xbb7+9SaNZCR qCN0BiII+wgAbNoQkqAg9LYC7C+SdI8voQ9O2b/S1OoJ+AvcI7IOmF/0E+gt5kNaa4adTq0ipBWAKArdx7vnGJnA3Ia2YZgLvG7Cce7BPPfVUO8X+4eqRR75O8wZZaAlCH6anF5BtOLZQ+u0g5k6z7777Zt+H9kOwiJCjHx87Y6Dgrtu0S2dsCONhgNtssW3hReAb76HHPHVmefvbJ77rqnW3jReAe87KJTndeA5gw04JSHBS4I0 hpAZBKjMaMINOLZ58smTbciQ4aaJFOoQ0w/iLsOdKtRMqw8qAwTKG+LkHwjm4ZHdyXA jAjEx8f4kgLsOe+XZN77rkndzTntttu867rgrsmE+VoIqF+NWD7UR6E5GIb+gr0U+oFaAb+sA2ZkUfV8GH0VQHwHQi+4K/Ebc/XlF6q+YKc2E2jF5zxOgNnhIhICI77nnni6/u3r1anMXyRsW9O2DjmLt0HCoIPDv44477uQ+EY2DaT4S4vxhz2xaWNugotC2WLs2uvfj7g68d0Cn2Bd0lmnO0Vep75zHwt2EIVnfPrvAbBbWZu CG2fJELfgGeeucck4Qtwz8P3q3+wIvWdZOv/5+/MnU8ceZpC+e6V0PX K6JHAHW60+ftudktt96aXX31df6z1sN+EKm2uF3N+L3t0wG4cADdL4gwQoW3t99dVX3pXIE64HQ5k+CRKCn3+mE/o8qKN+L0Q/hOYNHfX6z30OP/xw8TKQV5H1tAB0YPnfJu4uEM+5sC3H1myT7v7773cXYcCAAd7z7AnibsoA07JdUxoJM1DBSqSESHj7beP0X+mf0Qnh3OP6gvUTOV7o8MOOPPJIm3I5IVPNBkRAWxDJYsPhVPjr 6KKxz9DEK/BHWyBfcGx8Exy8AfftU1dQVxxx2bbb7FFtno0aNtav+ytgCMJNF/cXelWHiQyL68sPwp0g74INrchdzUjKJDegvCyACPEKwN0MWHQAS8bEewN/7wz1o8X8H2XH9aNGwT30nt/vnrreey++7rtFvXD9Fko5/j3qBgO4aQeRjH+vz/Usu01R1I0/A bMAyB9DXQcqDjv33rUvWIfmIhVJLTDKMF7O6wTkD3U6Y/RB6Lz7+psh2Ib/qydvhKuV4Lgp9D65SrQ8mBkIbBfHiIYR7CU0h/hLnPggQf6z6Mdsw/eYSKEe93yfNAXdN fqb74yFQKOtD0RbiTuSHcmJHHe7VkG/pPnG8ez0xYvzc6yU2R0gvAwDINc0ZCSB5f4YuBF4HoHDNE6ZtP7oPuPfco+l Uuha4AEofO89l10K7rJssIFNCnqsPk6wXkDSoh3AfQIOifHJI09bNF3UDHn eOV9x1sIRvB06sswJAo79hT0wgOI7d4CnAJ1/9l 7tds48+Oj9bY401MiqlvH0hJe1z9qUp2MwDLXomPO68 KGa7KJJrjPPz+ebbbbL1119fXLe8duWi2A8IMAP1rnvjd1/IKRhI pWbvlCuA6hX0bEO 0FEKATbmLu1pQ2n6MhTJqOC5OxC8z5+/N2J4KnH5BObwtEBbL76+u+yyS7b11lvbtMqH7xrW0qwAX3xxhV2zGPC5EX4xkP0r+L3RGrvs2bV75x3yDLb7b bddtt 77z16ycVIJQ/oVqZwksTgfOl+ePRPkZ ByIMCiXVBP2HAH2C gQ+T8vfdNPf8l13yy7PrrrNft5 s/rB8PwpXMtNNdO85yxKbZ5v Tpz9AJQtG86O5H8p89Ol9n+H0RsAPhM0VPPPGGk8X1ZgP6AnTWqe HbTrMX3c95553n30SicZ14Tw/c+cCNie5o89AFo/pTJxYLQeQGoQPKu4U4//WT6Yr7uy RsQ5/xggtu8O6jSD6ErkVehaQWotkpEKDYgzCtIgAA9LYC7CzByZt yMWk0eO9R6zi6KPPB1Hs0iAAD0twPHHH58tfPBB2MFgsP+wXRRt4OpFgAiCAEVrJYjz74cOgf+VAJp+5ph2yeLD4KEYK AE0ld BYG0vLlyytWr2b3bJ4/Pggg96z6HV6MnzZ4agJ897YWn0AgQoagvBfOYI Ld27eKzz757e8+h1TjzzLNsysXkgAMO8B63CwkQQYwAoYwoe4Qyp9no7e+E9BYSQCSN BBBJIwFE0kgAkTQSQCSNBBBJIwFE0kgAkTQSQCSNBBBJIwFE0kgAkTQSQCSNBBBJIwFE0kgAkTQSQCSNBBBJIwFE0kgAkTQSQCRNlv0f0+fIcj1O3gcAAAAASUVORK5CYII="/>
+
+<!-- Web App Manifest -->
+<link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIlNGWCBGbHVpZCBDYWxjdWxhdG9yIiwKICAic2hvcnRfbmFtZSI6ICJTRlggQ2FsYyIsCiAgImRlc2NyaXB0aW9uIjogIlByb2Zlc3Npb25hbCBoeWRyYXVsaWMgYW5kIHBuZXVtYXRpYyBjYWxjdWxhdGlvbnMgZm9yIHNwZWNpYWwgZWZmZWN0cyB3b3JrIiwKICAiaWNvbnMiOiBbCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9wbmc7YmFzZTY0LGlWQk9SdzBLR2dvQUFBQU5TVWhFVWdBQUFNQUFBQURBQ0FZQUFBU3pHd0hBQUFBQ1hCSVdYTUFBQXNUQUFBTEV3RUFtcHdZQUFBR1FrbEVRVlI0bk8zZFc0Z2RWeDJBOEgwbk1uZW1lMmUyYVJwbTZZWGJVdmJwTEwxZ3FLOEF6NHFQP2c4cVBpQXZGQjVFZkZCOEVCUVJYNm8rQ0Y2S0lXbHNLdWNLSGJOb25GZnBsT3pzN2M4NGM4Nte9ZmYvQjlzSk9aN1cyZHY5Gig0Q2JzSU9aLzNJcmNyVmZ3cGpqTm8+cHVDekVKdkFNK1kvNVlHbDU0VGY1MHAyZjA5Y3M2cWt6YzM5eW9wMXJLRkErcUE5OEcvdTFmL3Q0SDNjRzJ1cFJLWGE4d3hOdmJ6emVCYy9QMm5ILzJJWCszRHBWcEQyL3VKSE5kKzJHUWZBVSs5K3lFTnNIYjhsWTJ0QVFIaXZkQUJGVlBKMmltUTcwa1pGam1nL3k0K0FEd0FlQjcrOSs0Q2R3Q3NLSXlINWkrNGdIdjFsdW1XNWp5UWZyNzJnYW93aHdLSHo5aUFzQXhzQ2ZyZGczdjQvYjNBZWF4aDNxOHB3QTl5QzMrbjl1WThNTDMrN2dXK084d05kZmF3WU1tbXpKUUE2ODZoTGVjQU82QVNnRkFXeUZBZkJHNUJOdytqSDcvY2o3ZXpNOTMzZ0xmUmluZGUzZU56UVZyZ0RQb2RuK0FlWi9pYWpBTGFsNHgrcXRuNi8vL2VBSE1WRG05cDNlckZMZXh3SFEvdVJjY0FIUUZ6NXBOamJuaW1yRzh6UjFLQTVIa3JiQnJ3RjhvMjlnSjhLTVhzM2FmZWtKOFpkdnpJWCtWZnZVK3VGWGdHT0F6OFE3dWEzOXVZODdZK29xQU5qY0g3TkVGaWNML3Z4UGppT3NBeEQ3bW4yWUpNUy9lc1lmL2orM3pXVDJwLzhvVVdxaE82UU9BYThORlpNUjhzLzMzd004REc5czBYYUQvVWJBaDRCOHQ2RlZvZE5nUUdHZlFlQXdrcWVHN1lyZEFFNEFEWFZxd2QzOGFGTk5xMDBxZUtWVCtHV2xDbXhKQ2M4UFd0QVJHdUhiMUtXOEdDN2V3Q2M4UEdndis3ZjArN0dhQWY0RFRuaW5BZFBzdUFhOEZ6M3FmV0l2ZUg5eG9lMUMyZ0FpOEdOZ0V5OHZmaURLblR4T3ZsZnV4Z3YzNjNpTnVqVURuQnhDNGE0ZlJ4UXV6UzI1TGVmLzZrcEZ1MEViWUgvenlqOEFIUmpwOGRNTFE1a3Z1Uitrak9BckE3dUhuZmxFR3pLQWZLdUFqY0VtWjN4LytUdWFBbjJIcXVLYSs0VklOSTNLZk5KQ2RORW1CNGNNUXdyUGF6cGlONmcyQVRqSmNHUGJPMDJzd0JIN25xLzE5YkJwc0JsRThFa1prb2FTU2F0V3ljbVFCNFNyQmppYWJjdWluQVBjQ2lIaXp6YjFBSGVzUnJiSEY1RUtzNHpBLzhvWEZlc2lzYmdycHdVK21lQ2crc0xQN20vMHg3ckM4UlZvZFZWKytIMWRWWUJzbzF2WTNOQ1prRXllOHNBaWJvQnpFb1hndHBKT2l0eFp0UmJ0bW5mQXZENFBfaXFaL3FMd0hQQU04QXpqZnI1NmU4Y1RSTnVQYXVDOHBPUU1CZWZlSTcwcmtGd0Exd2czM1E4aUJSRWZJbVAvUjA5Mmk0YWRsSTZ6YkU5UG9vL3Zsb2Q2VWdyUWRZQ2JhbmJOQTNZRWpPbVZqQml5ekI3ZStjTC9kSWRpa0FnK2kyVGhDQTVDV0VTSVlGRkJnRkNTRjZoWmNnNkd2TjNxN3ZaTlBHZjNpZnFGUkZWL21PN3B5TGVZOFhWSnZ3Mi9IbGFjc05LQUIiLAogICAgICAic2l6ZXMiOiAiMTkyeDE5MiIsCiAgICAgICJ0eXBlIjogImltYWdlL3BuZyIKICAgIH0sCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9wbmc7YmFzZTY0LGlWQk9SdzBLR2dvQUFBQU5TVWhFVWdBQUFjQUFBQUhBQ0FZQUFBN0Y4Y0FBQUFBQjNSSlRVVUg3NGdvMHNrPSIsCiAgICAgICJzaXplcyI6ICI1MTJ4NTEyIiwKICAgICAgInR5cGUiOiAiaW1hZ2UvcG5nIgogICAgfQogIF0sCiAgInN0YXJ0X3VybCI6ICIvIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjZjlmYWZiIiwKICAidGhlbWVfY29sb3IiOiAiIzI1NjNlYiIsCiAgImNhdGVnb3JpZXMiOiBbImVuZ2luZWVyaW5nIiwgInByb2R1Y3Rpdml0eSJdCn0="/>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+        /* Additional custom styles if needed */
+        .bg-gray-50 { background-color: #f9fafb; }
+        .bg-blue-50 { background-color: #eff6ff; }
+        .bg-amber-50 { background-color: #fffbeb; }
+        .bg-green-50 { background-color: #f0fdf4; }
+        .bg-red-50 { background-color: #fef2f2; }
+        .text-blue-900 { color: #1e3a8a; }
+        .text-blue-800 { color: #1e40af; }
+        .text-blue-700 { color: #1d4ed8; }
+        .text-blue-600 { color: #2563eb; }
+        .text-amber-800 { color: #92400e; }
+        .text-amber-700 { color: #b45309; }
+        .text-amber-600 { color: #d97706; }
+        .text-green-800 { color: #166534; }
+        .text-green-700 { color: #15803d; }
+        .text-green-600 { color: #16a34a; }
+        .text-red-600 { color: #dc2626; }
+        .border-blue-200 { border-color: #dbeafe; }
+        .border-amber-200 { border-color: #fde68a; }
+        .border-green-200 { border-color: #bbf7d0; }
+
+        /* Cannon Calculator Table Styling */
+        #cannonSummaryTable,
+        #cannonResultsTable {
+            border-collapse: collapse;
+            font-size: 0.875rem;
+        }
+
+        #cannonSummaryTable th,
+        #cannonSummaryTable td,
+        #cannonResultsTable th,
+        #cannonResultsTable td {
+            border: 1px solid #d1d5db;
+            padding: 0.5rem;
+            text-align: left;
+        }
+
+        #cannonSummaryTable th,
+        #cannonResultsTable th {
+            background-color: #f3f4f6;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        /* Force equal width tabs */
+        [role="tablist"] button {
+            width: 33.333%;
+        }
+
+        /* Consistent hover behavior for tabs */
+        [role="tablist"] button.bg-blue-600:hover {
+            background-color: #2563eb !important; /* Darker blue for active tab hover */
+        }
+
+        [role="tablist"] button.bg-gray-200:hover {
+            background-color: #d1d5db !important; /* Darker gray for inactive tab hover */
+        }
+
+        /* Hide print-only elements on screen */
+        .print-only {
+            display: none !important;
+        }
+
+        /* Print Styles */
+        @media print {
+            /* Page setup */
+            @page {
+                margin: 1cm;
+                size: A4 portrait;
+            }
+
+            /* Hide interactive elements */
+            body {
+                background: white;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            /* Show print-only elements (unless explicitly hidden with inline style) */
+            .print-only:not([style*="display: none"]) {
+                display: block !important;
+            }
+
+            /* Remove max-width and padding from containers */
+            .max-w-6xl,
+            .mx-auto,
+            .p-6 {
+                max-width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .min-h-screen {
+                min-height: auto !important;
+            }
+
+            .no-print,
+            button,
+            select:not(.print-show),
+            input:not(.print-show),
+            #tabs,
+            .border-b.border-gray-200.pb-4.mb-6 p {
+                display: none !important;
+            }
+
+            /* Show only active tab content */
+            .tab-content {
+                display: none !important;
+            }
+
+            .tab-content.active {
+                display: block !important;
+            }
+
+            /* Print header */
+            .print-header {
+                display: block !important;
+                margin-bottom: 8px;
+                padding-bottom: 4px;
+                border-bottom: 2px solid #000;
+            }
+
+            .print-header h1 {
+                font-size: 14pt;
+                margin: 0 0 3px 0;
+            }
+
+            .print-header h2 {
+                font-size: 11pt;
+                margin: 3px 0;
+            }
+
+            .print-header p {
+                font-size: 8pt;
+                margin: 1px 0;
+                display: block !important;
+            }
+
+            /* Input summary table - spreadsheet style */
+            .print-inputs {
+                display: table !important;
+                width: 100%;
+                margin: 5px 0 8px 0;
+                page-break-inside: avoid;
+                font-size: 8pt;
+                border-collapse: collapse;
+            }
+
+            .print-inputs th {
+                background-color: #e0e0e0 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                padding: 3px 5px !important;
+                font-size: 8pt !important;
+                font-weight: bold !important;
+                border: 1px solid #000 !important;
+                text-align: left !important;
+            }
+
+            .print-inputs td {
+                padding: 2px 5px !important;
+                font-size: 8pt !important;
+                border: 1px solid #000 !important;
+            }
+
+            .print-inputs tbody tr:nth-child(even) {
+                background-color: #f9f9f9 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            /* Results styling */
+            .print-section {
+                page-break-inside: avoid;
+                margin: 8px 0;
+            }
+
+            /* Charts - each on own page */
+            canvas {
+                page-break-before: auto;
+                page-break-after: auto;
+                page-break-inside: avoid;
+                max-height: 300px !important;
+                max-width: 100% !important;
+            }
+
+            .chart-container {
+                page-break-before: auto;
+                page-break-after: auto;
+                page-break-inside: avoid;
+                margin: 5px 0;
+                padding: 5px !important;
+                width: 100% !important;
+            }
+
+            /* Tables */
+            table {
+                page-break-inside: auto;
+                width: 100% !important;
+                font-size: 8pt;
+            }
+
+            table td,
+            table th {
+                padding: 2px 4px !important;
+                font-size: 8pt;
+                word-wrap: break-word;
+                line-height: 1.2;
+            }
+
+            tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+
+            thead {
+                display: table-header-group;
+            }
+
+            th {
+                background-color: #f0f0f0 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                font-size: 8pt !important;
+            }
+
+            /* Ensure content fits width */
+            .overflow-x-auto {
+                overflow: visible !important;
+            }
+
+            .bg-white.p-4 {
+                padding: 5px !important;
+            }
+
+            /* Push footer to bottom of last page */
+            html, body {
+                height: 100%;
+            }
+
+            body > div {
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .print-footer {
+                display: block !important;
+                margin-top: auto;
+                padding: 5px 1cm;
+                border-top: 1px solid #000;
+                background: white;
+                font-size: 7pt;
+                page-break-inside: avoid;
+            }
+
+            .print-footer h3 {
+                font-size: 9pt;
+                margin: 3px 0;
+            }
+
+            .print-footer p {
+                margin: 1px 0;
+                display: block !important;
+                line-height: 1.2;
+            }
+
+            /* Remove shadows and rounded corners */
+            .shadow-lg,
+            .rounded-lg,
+            .bg-blue-50,
+            .bg-amber-50,
+            .bg-green-50 {
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                background: white !important;
+            }
+
+            /* Ensure readable colors */
+            .text-blue-900,
+            .text-blue-800,
+            .text-amber-800,
+            .text-green-800 {
+                color: #000 !important;
+            }
+
+            /* Section headings */
+            h3, h4 {
+                font-size: 9pt !important;
+                margin: 5px 0 3px 0 !important;
+            }
+
+            /* Results sections */
+            .bg-gray-50,
+            .bg-blue-50,
+            .bg-amber-50,
+            .bg-green-50,
+            .bg-red-50 {
+                padding: 3px !important;
+            }
+
+            /* Space-y adjustments */
+            .space-y-6 > * {
+                margin-top: 3px !important;
+            }
+
+            .space-y-6 > *:first-child {
+                margin-top: 0 !important;
+            }
+
+            .space-y-4 > * {
+                margin-top: 2px !important;
+            }
+
+            .space-y-2 > * {
+                margin-top: 1px !important;
+            }
+
+            /* Page break before element */
+            .print-page-break {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+<div class="max-w-6xl mx-auto p-2 sm:p-6 min-h-screen">
+<div class="bg-white rounded-lg shadow-lg p-2 sm:p-6">
+
+<!-- Print-only Header and Input Summary -->
+<div class="print-header" style="display: none;">
+    <h1>SFX Fluid Calculator</h1>
+    <h2 id="printCalculatorTitle"></h2>
+    <p id="printDate"></p>
+</div>
+
+<!-- Print-only Input Summary Table -->
+<table class="print-inputs" style="display: none; border-collapse: collapse; border: 1px solid #000;">
+    <thead>
+        <tr>
+            <th style="border: 1px solid #000; padding: 8px; text-align: left;">Parameter</th>
+            <th style="border: 1px solid #000; padding: 8px; text-align: left;">Value</th>
+        </tr>
+    </thead>
+    <tbody id="printInputsBody">
+    </tbody>
+</table>
+
+<!-- Header -->
+<div class="border-b border-gray-200 pb-4 mb-6 no-print">
+<h1 class="text-3xl font-bold text-gray-900">SFX Fluid Calculator</h1>
+<p class="text-gray-600 mt-2">Common Fluid calculations with flow analysis for SFX</p>
+</div>
+<!-- Global Settings -->
+<div class="bg-blue-50 rounded-lg p-4 mb-6 no-print">
+<h3 class="text-lg font-semibold text-blue-900 mb-3">System Settings</h3>
+<div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+<div>
+<label class="block text-sm font-medium text-blue-800 mb-1">Unit System</label>
+<select class="w-full p-2 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" id="units" title="Choose between metric (bar, mm, L/min) or imperial (PSI, in, GPM) units">
+<option value="metric">Metric</option>
+<option value="imperial">Imperial</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-medium text-blue-800 mb-1">Fluid Type</label>
+<select class="w-full p-2 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" id="fluidType" title="Select the type of fluid for calculations. Cannon calculator requires gaseous fluids (Air or Nitrogen)">
+<option value="hydraulic">Hydraulic Fluid (ISO 32)</option>
+<option value="water">Water</option>
+<option value="air">Air</option>
+<option value="nitrogen">Nitrogen Gas</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-medium text-blue-800 mb-1">Kinematic Viscosity (m²/s)</label>
+<input class="w-full p-2 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" id="viscosity" placeholder="0.000032" step="0.000001" type="number" value="0.000032" title="Kinematic viscosity of the fluid - automatically set based on fluid type"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-blue-800 mb-1">System Pressure <span id="pressureUnit">(bar)</span></label>
+<input class="w-full p-2 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" id="pressure" placeholder="150" type="number" value="150" title="Operating pressure of the hydraulic/pneumatic system"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-blue-800 mb-1">Operating Temperature (°C)</label>
+<input class="w-full p-2 border border-blue-200 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" id="temperature" placeholder="20" type="number" value="20" title="Operating temperature of the fluid in degrees Celsius"/>
+</div>
+</div>
+</div>
+<!-- Workflow Note -->
+<div class="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6 no-print">
+<h3 class="text-lg font-semibold text-amber-800 mb-2">💡  Recommended Workflow</h3>
+<div class="text-sm text-amber-700">
+<p><strong>Step 1:</strong> Calculate your hose system first to determine maximum flow capacity</p>
+<p><strong>Step 2:</strong> If hose max flow is less than your pump flow, use the hose flow value in the cylinder calculation. Also reduce the cylinder pressure by the hose pressure drop to get actual cylinder performance.</p>
+<p>This ensures your cylinder calculations reflect real-world flow limitations and available pressure</p>
+</div>
+</div>
+<!-- Tab Navigation -->
+<div class="flex border-b-2 border-gray-300 mb-6 bg-gray-100" role="tablist">
+<button class="px-2 sm:px-6 py-3 font-semibold text-white bg-blue-600 border-b-4 border-blue-700 transition-colors cursor-pointer text-sm sm:text-base flex-1" id="hoseTab" role="tab" aria-selected="true" title="Calculate pressure drop and flow capacity through hoses and elbows">
+                    <span class="hidden sm:inline">Hose &amp; Elbow Calculator</span>
+                    <span class="sm:hidden">Hose</span>
+                </button>
+<button class="px-2 sm:px-6 py-3 font-semibold text-gray-700 bg-gray-200 border-b-4 border-transparent transition-colors cursor-pointer text-sm sm:text-base flex-1" id="cylinderTab" role="tab" aria-selected="false" title="Calculate hydraulic/pneumatic cylinder forces, velocities, and timing">
+                    <span class="hidden sm:inline">Cylinder Calculator</span>
+                    <span class="sm:hidden">Cylinder</span>
+                </button>
+<button class="px-2 sm:px-6 py-3 font-semibold text-gray-700 bg-gray-200 border-b-4 border-transparent transition-colors cursor-pointer text-sm sm:text-base flex-1" id="cannonTab" role="tab" aria-selected="false" title="Gas expansion simulation for pneumatic cannons - only available for gaseous fluids (Air or Nitrogen)">
+                    <span class="hidden sm:inline">Cannon Calculator</span>
+                    <span class="sm:hidden">Cannon</span>
+                </button>
+</div>
+<!-- Hose Calculator -->
+<div class="space-y-6" id="hoseCalculator">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 no-print">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Hose Inner Diameter <span id="lengthUnit5">(mm)</span></label>
+<input class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" id="hoseBore" placeholder="25" type="number" title="Internal diameter of the hydraulic hose"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Total Hose Length <span id="hoseUnit">(m)</span></label>
+<input class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" id="hoseLength" placeholder="10" type="number" title="Total length of hose run from pump to cylinder"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Number of 90 deg Elbows</label>
+<input class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" id="elbowCount" min="0" placeholder="4" type="number" title="Count of 90-degree elbow fittings in the hose run"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Velocity Limit</label>
+<select class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" id="velocityLimit" title="Maximum fluid velocity limit - lower velocities increase hose life by reducing erosion and turbulence. Higher velocities acceptable for short duration or intermittent operation.">
+<option value="4.5">4.5 m/s (15 fps) - Continuous Flow</option>
+<option value="5.5" selected>5.5 m/s (18 fps) - Industry Standard</option>
+<option value="6.0">6.0 m/s (20 fps) - Intermittent Flow</option>
+<option value="7.6">7.6 m/s (25 fps) - Short Duration</option>
+<option value="9.1">9.1 m/s (30 fps) - Peak/Transient</option>
+</select>
+</div>
+</div>
+<!-- Calculate Button -->
+<div class="flex justify-center gap-4 mt-6">
+<button class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors" id="calculateHose">
+                        Calculate Hose Performance
+                    </button>
+<button class="px-8 py-3 bg-gray-400 text-white font-semibold rounded-lg cursor-not-allowed transition-colors" id="printHose" disabled>
+                        Print Report
+                    </button>
+</div>
+<!-- Hose Results -->
+<div class="bg-gray-50 rounded-lg p-6" id="hoseResults" style="display: none;">
+<h3 class="text-lg font-semibold text-gray-900 mb-4">Calculation Results</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-4">
+<div class="bg-white p-4 rounded-lg border">
+<h4 class="font-medium text-gray-800 mb-2">Flow Capacity</h4>
+<div class="space-y-2">
+<div class="flex justify-between">
+<span>Max Flow Capacity:</span>
+<span class="font-mono font-semibold text-green-600" id="maxFlow">--</span>
+</div>
+<div class="flex justify-between">
+<span>Max Velocity:</span>
+<span class="font-mono" id="maxVelocity">--</span>
+</div>
+<div class="flex justify-between">
+<span>Laminar Only Flow:</span>
+<span class="font-mono" id="laminarOnlyFlow">--</span>
+</div>
+<div class="flex justify-between">
+<span>Reynolds Number:</span>
+<span class="font-mono" id="reynolds">--</span>
+</div>
+<div class="flex justify-between">
+<span>System Pressure:</span>
+<span class="font-mono" id="systemPressure">--</span>
+</div>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<div class="bg-white p-4 rounded-lg border">
+<h4 class="font-medium text-gray-800 mb-2">Pressure Drop</h4>
+<div class="space-y-2">
+<div class="flex justify-between">
+<span>Straight Hose:</span>
+<span class="font-mono" id="pressureDropHose">--</span>
+</div>
+<div class="flex justify-between">
+<span>Elbows:</span>
+<span class="font-mono" id="pressureDropElbows">--</span>
+</div>
+<div class="flex justify-between border-t pt-2 font-semibold">
+<span>Total Drop:</span>
+<span class="font-mono" id="totalPressureDrop">--</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+<h4 class="font-medium text-green-800 mb-2">📋  For Cylinder Calculation</h4>
+<div class="text-sm text-green-700">
+<p><strong>Use this flow rate in your cylinder calculation:</strong></p>
+<p class="font-mono text-lg font-semibold text-green-600 mt-1" id="recommendedFlow">--</p>
+<p class="mt-2 text-xs">
+                                If this is less than your pump flow rate, your hose system is the limiting factor.
+                            </p>
+</div>
+</div>
+<div class="mt-4 p-4 bg-amber-50 rounded-lg no-print">
+<h4 class="font-medium text-amber-800 mb-2">Notes</h4>
+<div class="text-sm text-amber-700" id="hoseNotes">
+</div>
+</div>
+</div>
+<!-- Buy me a Coffee Button -->
+<div class="flex justify-center mt-6 no-print">
+<a href="https://ko-fi.com/psidesign" target="_blank" class="px-8 py-3 bg-green-700 text-white font-semibold rounded-lg hover:bg-green-800 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors">Buy me a Coffee</a>
+</div>
+</div>
+<!-- Cylinder Calculator -->
+<div class="space-y-6" id="cylinderCalculator" style="display: none;">
+<!-- Use Hose Values Checkbox -->
+<div class="bg-green-50 border border-green-200 rounded-lg p-3 mb-4 no-print">
+<label class="flex items-center cursor-pointer">
+<input type="checkbox" id="useHoseValues" class="mr-2 h-4 w-4" disabled title="Enable after running Hose Calculator to automatically use hose flow and reduced pressure">
+<span class="text-sm font-medium text-green-800">Use Hose Calculator Values (auto-adjusts pressure and flow)</span>
+</label>
+<p class="text-xs text-green-700 mt-1 ml-6">When enabled: reduces system pressure by hose pressure drop, and limits pump flow to hose capacity</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 no-print">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Bore Diameter <span id="lengthUnit1">(mm)</span></label>
+<input class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" id="bore" placeholder="100" type="number" title="Internal diameter of the cylinder barrel"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Stroke Length <span id="lengthUnit2">(mm)</span></label>
+<input class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" id="stroke" placeholder="200" type="number" title="Total travel distance of the piston"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Rod Diameter <span id="lengthUnit3">(mm)</span></label>
+<input class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" id="rodDiameter" placeholder="50" type="number" title="Diameter of the piston rod - affects retraction area and buckling strength"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Port Size (BSP)</label>
+<select class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" id="portSize" title="British Standard Pipe thread size - automatically sets port diameter">
+<option value="">Select BSP Size</option>
+<option value="1/8">1/8" BSP</option>
+<option value="1/4">1/4" BSP</option>
+<option value="3/8">3/8" BSP</option>
+<option value="1/2">1/2" BSP</option>
+<option value="5/8">5/8" BSP</option>
+<option value="3/4">3/4" BSP</option>
+<option value="7/8">7/8" BSP</option>
+<option value="1">1" BSP</option>
+<option value="1_1/8">1 1/8" BSP</option>
+<option value="1_1/4">1 1/4" BSP</option>
+<option value="1_3/8">1 3/8" BSP</option>
+<option value="1_1/2">1 1/2" BSP</option>
+<option value="1_5/8">1 5/8" BSP</option>
+<option value="1_3/4">1 3/4" BSP</option>
+<option value="1_7/8">1 7/8" BSP</option>
+<option value="2">2" BSP</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Port Diameter <span id="lengthUnit4">(mm)</span></label>
+<input class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" id="portDiameter" placeholder="12" step="0.001" type="number" title="Internal diameter of the cylinder port - auto-filled from BSP size or enter manually"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Ports Per End</label>
+<input class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" id="portsPerEnd" min="1" placeholder="1" type="number" value="1" title="Number of fluid ports at each end of the cylinder (typically 1 or 2)"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Max Pump Flow <span id="flowUnit1">(L/min)</span></label>
+<input class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" id="pumpFlow" placeholder="50" type="number" title="Maximum flow rate from the pump or manifold (use hose calculator result if hose-limited)"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Factor of Safety</label>
+<input class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" id="safetyFactor" placeholder="5" type="number" value="5" min="1" step="0.1" title="Safety factor for buckling analysis - minimum recommended value is 5.0"/>
+</div>
+</div>
+<!-- Calculate Button -->
+<div class="flex justify-center gap-4 mt-6">
+<button class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors" id="calculateCylinder">
+                        Calculate Cylinder Performance
+                    </button>
+<button class="px-8 py-3 bg-gray-400 text-white font-semibold rounded-lg cursor-not-allowed transition-colors" id="printCylinder" disabled>
+                        Print Report
+                    </button>
+</div>
+<!-- Cylinder Results -->
+<div class="bg-gray-50 rounded-lg p-6" id="cylinderResults" style="display: none;">
+<!-- Buckling Warning (print only) -->
+<div id="cylinderBucklingWarning" style="display: none;" class="print-only mb-4 p-3 bg-red-50 border-2 border-red-600 rounded">
+<p class="font-bold text-red-800" style="font-size: 11pt;"><strong>⚠️ BUCKLING WARNING: Rod diameter is insufficient for compression load!</strong></p>
+<p class="text-red-700 mt-1" id="bucklingDetails"></p>
+</div>
+<h3 class="text-lg font-semibold text-gray-900 mb-4">Calculation Results</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-4">
+<div class="bg-white p-4 rounded-lg border">
+<h4 class="font-medium text-gray-800 mb-2">Forces</h4>
+<div class="space-y-2">
+<div class="flex justify-between">
+<span>Extension Force:</span>
+<span class="font-mono" id="extensionForce">--</span>
+</div>
+<div class="flex justify-between">
+<span>Retraction Force:</span>
+<span class="font-mono" id="retractionForce">--</span>
+</div>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<div class="bg-white p-4 rounded-lg border">
+<h4 class="font-medium text-gray-800 mb-2">Velocities &amp; Timing</h4>
+<div class="space-y-2">
+<div class="flex justify-between">
+<span>Extension Velocity:</span>
+<span class="font-mono" id="extensionVelocity">--</span>
+</div>
+<div class="flex justify-between">
+<span>Retraction Velocity:</span>
+<span class="font-mono" id="retractionVelocity">--</span>
+</div>
+<div class="border-t pt-2 mt-2">
+<div class="flex justify-between">
+<span>Extension Time:</span>
+<span class="font-mono text-blue-600" id="extensionTime">--</span>
+</div>
+<div class="flex justify-between">
+<span>Retraction Time:</span>
+<span class="font-mono text-blue-600" id="retractionTime">--</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Limiting Factor Explanation -->
+<div class="bg-gray-100 p-3 rounded-lg border" id="cylinderLimitingFactorNote" style="display: none;">
+<p class="text-sm font-bold" id="cylinderLimitingFactorText"></p>
+</div>
+</div>
+</div>
+<div class="mt-4 p-4 bg-blue-50 rounded-lg no-print">
+<h4 class="font-medium text-blue-800 mb-2">Limiting Factors</h4>
+<div class="text-sm text-blue-700">
+<p>🔴  Red: Limited by port size (flow limit)</p>
+<p>🟢  Green: Limited by pump flow rate</p>
+<div id="cylinderNotes"></div>
+</div>
+</div>
+</div>
+<!-- Buy me a Coffee Button -->
+<div class="flex justify-center mt-6 no-print">
+<a href="https://ko-fi.com/psidesign" target="_blank" class="px-8 py-3 bg-green-700 text-white font-semibold rounded-lg hover:bg-green-800 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors">Buy me a Coffee</a>
+</div>
+</div>
+<div class="space-y-6" id="cannonCalculator" style="display: none;">
+<!-- Description -->
+<div class="bg-blue-50 border border-blue-200 rounded-lg p-4 no-print">
+<p class="text-sm text-blue-800">
+Gas expansion simulation modeling compressed gas expansion from reservoir to piston cylinder with choked-flow orifice.
+Uses ideal gas laws and flow rate limitations.
+</p>
+<p class="text-xs text-blue-700 mt-2 italic">Based on Alex (Lec) Fabre's excellent cannon calculator</p>
+</div>
+
+<!-- Input Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 no-print">
+<!-- Stroke Length -->
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">
+Stroke Length <span id="cannonStrokeUnit">(m)</span>
+</label>
+<input id="cannonStroke" type="number" value="1" step="0.01"
+placeholder="1" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" title="Total travel distance of the cannon piston"/>
+</div>
+
+<!-- Cylinder Diameter -->
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">
+Cylinder Diameter <span id="cannonDiameterUnit">(mm)</span>
+</label>
+<input id="cannonDiameter" type="number" value="200"
+placeholder="200" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" title="Internal bore diameter of the cannon cylinder"/>
+</div>
+
+<!-- Reservoir Volume -->
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">
+Reservoir Volume <span id="cannonV1Unit">(L)</span>
+</label>
+<input id="cannonV1" type="number" value="20"
+placeholder="20" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" title="Volume of the compressed gas reservoir"/>
+</div>
+
+<!-- Pre-expansion Volume -->
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">
+Pre-expansion Volume <span id="cannonVstartUnit">(L)</span>
+</label>
+<input id="cannonVstart" type="number" value="2" step="0.01"
+placeholder="2" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" title="Initial cylinder volume before piston starts moving (dead space) - includes the volume of the hose from the valve to the cylinder"/>
+</div>
+
+<!-- Mass -->
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">
+Mass <span id="cannonMassUnit">(kg)</span>
+</label>
+<input id="cannonMass" type="number" value="2000"
+placeholder="2000" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" title="Total mass being accelerated (projectile + piston)"/>
+</div>
+
+<!-- Orifice Diameter -->
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">
+Port Orifice Diameter <span id="cannonOrificeUnit">(mm)</span>
+</label>
+<input id="cannonOrifice" type="number" value="50"
+placeholder="50" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" title="Diameter of the flow restriction orifice between reservoir and cylinder (e.g., Martini valve)"/>
+</div>
+
+<!-- Number of Ports -->
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">
+Number of Ports
+</label>
+<input id="cannonNumPorts" type="number" value="1" min="1"
+placeholder="1" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" title="Number of orifice ports (flow capacity multiplies with number of ports)"/>
+</div>
+
+<!-- Efficiency -->
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">
+System Efficiency (%)
+</label>
+<input id="cannonEfficiency" type="number" value="70"
+placeholder="70" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" title="Overall system efficiency accounting for friction, leakage, and energy losses"/>
+</div>
+
+<!-- Steps -->
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">
+Calculation Steps
+</label>
+<input id="cannonSteps" type="number" value="100"
+placeholder="100" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" title="Number of discrete steps for simulation (more steps = more accurate but slower)"/>
+</div>
+
+<!-- System Pressure (Read-only, from global settings) -->
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">
+System Pressure <span id="cannonPressureUnit">(bar)</span>
+</label>
+<input id="cannonPressureDisplay" type="number" readonly
+class="w-full p-2 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed" title="Initial reservoir pressure - set in System Settings above"/>
+<p class="text-xs text-gray-500 mt-1">Set in System Settings above</p>
+</div>
+</div>
+
+<!-- Calculate Button -->
+<div class="flex justify-center gap-4 mt-6">
+<button id="calculateCannon"
+class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
+Calculate Cannon Performance
+</button>
+<button class="px-8 py-3 bg-gray-400 text-white font-semibold rounded-lg cursor-not-allowed transition-colors" id="printCannon" disabled>
+Print Report
+</button>
+</div>
+
+<!-- Results Section -->
+<div id="cannonResults" class="bg-gray-50 rounded-lg p-6" style="display: none;">
+<h3 class="text-lg font-semibold text-gray-900 mb-4">Calculation Results</h3>
+
+<!-- Summary Table -->
+<div class="bg-white p-4 rounded-lg border mb-6">
+<h4 class="font-medium text-gray-800 mb-3">Summary of Extremes</h4>
+<div class="overflow-x-auto">
+<table id="cannonSummaryTable" class="w-full"></table>
+</div>
+</div>
+
+<!-- Charts -->
+<div class="space-y-6">
+<div class="bg-white p-4 rounded-lg border chart-container">
+<h4 class="font-medium text-gray-800 mb-3">Force vs Displacement</h4>
+<canvas id="cannonForceChart"></canvas>
+</div>
+
+<div class="bg-white p-4 rounded-lg border chart-container">
+<h4 class="font-medium text-gray-800 mb-3">Velocity vs Displacement</h4>
+<canvas id="cannonVelocityChart"></canvas>
+</div>
+
+<div class="bg-white p-4 rounded-lg border chart-container">
+<h4 class="font-medium text-gray-800 mb-3">Kinetic Energy vs Displacement</h4>
+<canvas id="cannonKineticChart"></canvas>
+</div>
+</div>
+
+<!-- Detailed Results Table -->
+<div class="bg-white p-4 rounded-lg border mt-6 print-page-break">
+<h4 class="font-medium text-gray-800 mb-3">Detailed Results (Every 5th Row)</h4>
+<div class="overflow-x-auto">
+<table id="cannonResultsTable" class="w-full"></table>
+</div>
+</div>
+
+<!-- Cannon Notes (print only) -->
+<div class="print-only bg-gray-100 p-3 rounded-lg border mt-4" id="cannonPrintNotes" style="display: none;">
+<h4 class="font-semibold text-gray-800 mb-2">Notes:</h4>
+<p class="text-sm"><strong>Max Throw Height:</strong> Calculated assuming vertical launch with no aerodynamic drag. Actual height will be lower due to air resistance.</p>
+<p class="text-sm mt-1"><strong>Simulation Method:</strong> Uses discrete time steps (dt=0.001s) to model gas transfer through orifice. Choked flow occurs when reservoir pressure exceeds critical ratio.</p>
+<p class="text-sm mt-1"><strong>Energy Losses:</strong> System efficiency parameter accounts for friction, heat transfer, and incomplete gas expansion. Typical values: 70-80%.</p>
+<p class="text-xs mt-2 italic">Based on Alex (Lec) Fabre's excellent cannon calculator</p>
+</div>
+</div>
+<!-- Buy me a Coffee Button -->
+<div class="flex justify-center mt-6 no-print">
+<a href="https://ko-fi.com/psidesign" target="_blank" class="px-8 py-3 bg-green-700 text-white font-semibold rounded-lg hover:bg-green-800 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors">Buy me a Coffee</a>
+</div>
+</div>
+<script>
+        // Global variables
+        let currentFluidType = 'hydraulic';
+        let currentUnits = 'metric';
+        let SAFETY_FACTOR = 5.0; // Factor of safety for buckling analysis
+
+        // Store hose calculation results for use in cylinder calculator
+        let hoseResults = null;
+
+        // Viscosity presets (in m²/s - SI units)
+        const viscosityPresets = {
+            hydraulic: { value: 0.000032, type: 'liquid' },  // 32 cSt = 32×10⁻⁶ m²/s
+            water: { value: 0.000001, type: 'liquid' },      // 1 cSt = 1×10⁻⁶ m²/s
+            air: { value: 0.0000151, type: 'gas' },          // 15.1 cSt = 15.1×10⁻⁶ m²/s at 20°C, 1 atm
+            nitrogen: { value: 0.0000148, type: 'gas' }      // 14.8 cSt = 14.8×10⁻⁶ m²/s at 20°C, 1 atm
+        };
+
+        // BSP sizes (internal bore diameter in mm)
+        const bspSizes = {
+            '1/8': 3.2,
+            '1/4': 6.4,
+            '3/8': 9.5,
+            '1/2': 12.7,
+            '5/8': 15.9,
+            '3/4': 19.1,
+            '7/8': 22.2,
+            '1': 25.4,
+            '1_1/8': 28.6,
+            '1_1/4': 31.8,
+            '1_3/8': 34.9,
+            '1_1/2': 38.1,
+            '1_5/8': 41.3,
+            '1_3/4': 44.5,
+            '1_7/8': 47.6,
+            '2': 50.8
+        };
+
+        // Unit conversion functions
+        function convertToMM(value, fromUnit) {
+            if (fromUnit === 'metric') return parseFloat(value);
+            return parseFloat(value) * 25.4;
+        }
+
+        function convertToLPM(value, fromUnit) {
+            if (fromUnit === 'metric') return parseFloat(value);
+            return parseFloat(value) * 3.785;
+        }
+
+        function convertToPa(value, fromUnit) {
+            if (fromUnit === 'metric') return parseFloat(value) * 100000;
+            return parseFloat(value) * 6895;
+        }
+
+        // Cannon-specific conversions
+        function convertStrokeToM(value, fromUnit) {
+            if (fromUnit === 'metric') return parseFloat(value); // Already in m
+            return parseFloat(value) * 0.3048; // ft to m
+        }
+
+        function convertVolumeToL(value, fromUnit) {
+            if (fromUnit === 'metric') return parseFloat(value); // Already in L
+            return parseFloat(value) / 1.76; // pints to L
+        }
+
+        function convertMassToKg(value, fromUnit) {
+            if (fromUnit === 'metric') return parseFloat(value); // Already in kg
+            return parseFloat(value) / 2.2046; // lbs to kg
+        }
+
+        // Display conversions for cannon results
+        function convertCannonForDisplay(value, type) {
+            if (value === undefined || value === null || isNaN(value)) return '--';
+
+            switch (type) {
+                case 'displacement':
+                    return currentUnits === 'imperial' ? (value / 0.3048).toFixed(3) + ' ft' : value.toFixed(3) + ' m';
+                case 'pressure':
+                    return currentUnits === 'imperial' ? (value * 14.5038).toFixed(2) + ' PSI' : value.toFixed(2) + ' bar';
+                case 'force':
+                    return currentUnits === 'imperial' ? (value * 0.224809).toFixed(1) + ' lbf' : value.toFixed(1) + ' N';
+                case 'velocity':
+                    // Always show m/s with mph in brackets
+                    const mph = (value * 2.23694).toFixed(2);
+                    return currentUnits === 'imperial' ?
+                        (value / 0.3048).toFixed(2) + ' ft/s (' + value.toFixed(2) + ' m/s, ' + mph + ' mph)' :
+                        value.toFixed(2) + ' m/s (' + mph + ' mph)';
+                case 'kineticEnergy':
+                    return currentUnits === 'imperial' ? (value * 0.737562).toFixed(0) + ' ft-lbf' : value.toFixed(0) + ' J';
+                default:
+                    return value.toFixed(2);
+            }
+        }
+
+        function convertForDisplay(value, type) {
+            if (value === undefined || value === null || isNaN(value)) return '--';
+            
+            switch (type) {
+                case 'force':
+                    return currentUnits === 'imperial' ? (value * 0.224809).toFixed(0) + ' lbf' : value.toFixed(0) + ' N';
+                case 'velocity':
+                    return currentUnits === 'imperial' ? (value / 25.4).toFixed(2) + ' in/s' : value.toFixed(2) + ' mm/s';
+                case 'flow':
+                    return currentUnits === 'imperial' ? (value / 3.785).toFixed(2) + ' GPM' : value.toFixed(2) + ' L/min';
+                case 'pressure':
+                    return currentUnits === 'imperial' ? (value * 14.5038).toFixed(1) + ' PSI' : value.toFixed(2) + ' bar';
+                case 'mass':
+                    return currentUnits === 'imperial' ? (value * 2.2046).toFixed(1) + ' Lbs' : value.toFixed(2) + ' kg';
+                case 'volume':
+                    return currentUnits === 'imperial' ? (value * 1.76).toFixed(1) + ' Pts' : value.toFixed(2) + ' l';
+                default:
+                    return value.toFixed(2);
+            }
+        }
+
+        function formatNumber(num, decimals = 2) {
+            if (num === undefined || num === null || isNaN(num)) return '--';
+            return num.toFixed(decimals);
+        }
+
+        function calculateReynolds(velocity, diameter, viscosity, fluidType = 'liquid') {
+            const kinematicViscosity = viscosity * 1e-6;
+            return (velocity * diameter) / kinematicViscosity;
+        }
+
+        function getCurrentFluidType() {
+            const fluidSelect = document.getElementById('fluidType');
+            const selectedFluid = fluidSelect.value;
+            return viscosityPresets[selectedFluid]?.type || 'liquid';
+        }
+
+        // Euler Buckling Calculation
+        function calculateEulerBuckling(rodDiameterMM, strokeMM, force) {
+            // EN8 Steel properties
+            const E = 200e9; // Young's modulus in Pa (200 GPa)
+            const FOS = SAFETY_FACTOR; // Factor of safety
+
+            // Convert to meters
+            const diameter = rodDiameterMM / 1000; // m
+            const length = strokeMM / 1000; // m
+
+            // Second moment of area for solid circular rod
+            const I = Math.PI * Math.pow(diameter, 4) / 64;
+
+            // Euler critical load for pinned-pinned column
+            const P_critical = (Math.PI * Math.PI * E * I) / (length * length);
+
+            // Allowable load with factor of safety
+            const P_allowable = P_critical / FOS;
+
+            // Calculate minimum diameter needed for the applied force
+            const minDiameter = Math.pow((64 * length * length * FOS * force) / (Math.PI * Math.PI * Math.PI * E), 0.25) * 1000; // Convert back to mm
+
+            return {
+                criticalLoad: P_critical,
+                allowableLoad: P_allowable,
+                appliedLoad: force,
+                isAdequate: force <= P_allowable,
+                safetyFactor: P_critical / force,
+                minDiameterMM: minDiameter
+            };
+        }
+
+        // Tab switching
+        document.getElementById('hoseTab').addEventListener('click', function() {
+            document.getElementById('hoseCalculator').style.display = 'block';
+            document.getElementById('cylinderCalculator').style.display = 'none';
+            document.getElementById('cannonCalculator').style.display = 'none';
+            setActiveTab('hoseTab');
+        });
+
+        document.getElementById('cylinderTab').addEventListener('click', function() {
+            document.getElementById('cylinderCalculator').style.display = 'block';
+            document.getElementById('hoseCalculator').style.display = 'none';
+            document.getElementById('cannonCalculator').style.display = 'none';
+            setActiveTab('cylinderTab');
+        });
+
+        document.getElementById('cannonTab').addEventListener('click', function() {
+            document.getElementById('cylinderCalculator').style.display = 'none';
+            document.getElementById('hoseCalculator').style.display = 'none';
+            document.getElementById('cannonCalculator').style.display = 'block';
+            setActiveTab('cannonTab');
+        });
+
+        // Update cannon pressure display
+        function updateCannonPressureDisplay() {
+            const pressureInput = document.getElementById('pressure');
+            const cannonPressureDisplay = document.getElementById('cannonPressureDisplay');
+
+            if (pressureInput && cannonPressureDisplay) {
+                const pressure = parseFloat(pressureInput.value);
+                if (!isNaN(pressure)) {
+                    cannonPressureDisplay.value = pressure;
+                }
+            }
+        }
+
+        // Unit system change
+        document.getElementById('units').addEventListener('change', function() {
+            currentUnits = this.value;
+            updateUnitLabels();
+        });
+
+        function updateUnitLabels() {
+            const units = {
+                metric: { length: 'mm', pressure: 'bar', flow: 'L/min', hose: 'm', mass: 'kg', volume: 'l' },
+                imperial: { length: 'in', pressure: 'PSI', flow: 'GPM', hose: 'ft', mass: 'lbs', volume: 'pts' }
+            };
+            
+            document.getElementById('pressureUnit').textContent = `(${units[currentUnits].pressure})`;
+            document.getElementById('lengthUnit1').textContent = `(${units[currentUnits].length})`;
+            document.getElementById('lengthUnit2').textContent = `(${units[currentUnits].length})`;
+            document.getElementById('lengthUnit3').textContent = `(${units[currentUnits].length})`;
+            document.getElementById('lengthUnit4').textContent = `(${units[currentUnits].length})`;
+            document.getElementById('lengthUnit5').textContent = `(${units[currentUnits].length})`;
+            document.getElementById('flowUnit1').textContent = `(${units[currentUnits].flow})`;
+            document.getElementById('hoseUnit').textContent = `(${units[currentUnits].hose})`;
+
+            // Cannon calculator units (only if elements exist)
+            const massUnit = document.getElementById('massUnit1');
+            if (massUnit) massUnit.textContent = `(${units[currentUnits].mass})`;
+
+            const volumeUnit = document.getElementById('volumeUnit1');
+            if (volumeUnit) volumeUnit.textContent = `(${units[currentUnits].volume})`;
+            
+            // Reset rod diameter label to default (remove any buckling warnings when units change)
+            const rodDiameterLabel = document.querySelector('label[for="rodDiameter"]') || 
+                                   document.getElementById('rodDiameter').previousElementSibling;
+            if (rodDiameterLabel) {
+                rodDiameterLabel.innerHTML = `Rod Diameter <span id="lengthUnit3">(${units[currentUnits].length})</span>`;
+            }
+            
+            // Reset rod diameter input styling
+            const rodDiameterInput = document.getElementById('rodDiameter');
+            if (rodDiameterInput) {
+                rodDiameterInput.style.backgroundColor = '';
+                rodDiameterInput.style.borderColor = '';
+            }
+            
+            // Update placeholders
+            document.getElementById('pressure').placeholder = currentUnits === 'metric' ? '150' : '2200';
+
+            // Update cannon calculator unit labels
+            if (document.getElementById('cannonStrokeUnit')) {
+                document.getElementById('cannonStrokeUnit').textContent = `(${units[currentUnits].hose})`; // m or ft
+                document.getElementById('cannonDiameterUnit').textContent = `(${units[currentUnits].length})`; // mm or in
+                document.getElementById('cannonV1Unit').textContent = `(${units[currentUnits].volume})`; // L or pts
+                document.getElementById('cannonVstartUnit').textContent = `(${units[currentUnits].volume})`; // L or pts
+                document.getElementById('cannonMassUnit').textContent = `(${units[currentUnits].mass})`; // kg or lbs
+                document.getElementById('cannonOrificeUnit').textContent = `(${units[currentUnits].length})`; // mm or in
+                document.getElementById('cannonPressureUnit').textContent = `(${units[currentUnits].pressure})`; // bar or PSI
+
+                // Update pressure display value when units change
+                updateCannonPressureDisplay();
+            }
+        }
+
+        // Pressure input change - update cannon pressure display
+        document.getElementById('pressure').addEventListener('input', updateCannonPressureDisplay);
+
+        // Fluid type change
+        document.getElementById('fluidType').addEventListener('change', function() {
+            currentFluidType = this.value;
+            document.getElementById('viscosity').value = viscosityPresets[currentFluidType].value;
+
+            // Clear any existing results when fluid type changes
+            document.getElementById('cylinderResults').style.display = 'none';
+            document.getElementById('hoseResults').style.display = 'none';
+        });
+
+        // Port size change
+        document.getElementById('portSize').addEventListener('change', function() {
+            const size = this.value;
+            if (size && bspSizes[size]) {
+                const diameterMM = bspSizes[size];
+                if (currentUnits === 'imperial') {
+                    document.getElementById('portDiameter').value = (diameterMM / 25.4).toFixed(3);
+                } else {
+                    document.getElementById('portDiameter').value = diameterMM.toString();
+                }
+            }
+        });
+
+        // Cylinder calculation
+        document.getElementById('calculateCylinder').addEventListener('click', function() {
+            const bore = document.getElementById('bore').value;
+            const stroke = document.getElementById('stroke').value;
+            const rodDiameter = document.getElementById('rodDiameter').value;
+            const portDiameter = document.getElementById('portDiameter').value;
+            const portsPerEnd = parseInt(document.getElementById('portsPerEnd').value) || 1;
+            let pumpFlow = document.getElementById('pumpFlow').value;
+            let pressure = document.getElementById('pressure').value;
+            const viscosity = parseFloat(document.getElementById('viscosity').value);
+
+            // Update global safety factor from input
+            SAFETY_FACTOR = parseFloat(document.getElementById('safetyFactor').value) || 5.0;
+
+            if (!bore || !stroke || !rodDiameter || !portDiameter || !pumpFlow || !pressure) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            // Check if "Use Hose Values" is enabled and hose results are available
+            const useHoseValues = document.getElementById('useHoseValues').checked;
+            let hoseAdjustments = null;
+
+            if (useHoseValues && hoseResults) {
+                // Convert pressure to current units for calculation
+                const systemPressure = parseFloat(pressure);
+                const hosePressureDrop = currentUnits === 'metric' ?
+                    hoseResults.totalPressureDrop :
+                    hoseResults.totalPressureDrop * 14.5038; // bar to PSI
+
+                // Reduce system pressure by hose pressure drop
+                pressure = systemPressure - hosePressureDrop;
+
+                // Use hose flow multiplied by number of ports (assumes each port has its own hose)
+                const hoseFlowSingle = currentUnits === 'metric' ?
+                    hoseResults.maxLaminarFlow :
+                    hoseResults.maxLaminarFlow * 0.264172; // L/min to GPM
+
+                const hoseFlow = hoseFlowSingle * portsPerEnd;
+
+                const pumpFlowNum = parseFloat(pumpFlow);
+                const flowLimited = hoseFlow < pumpFlowNum;
+
+                if (flowLimited) {
+                    pumpFlow = hoseFlow;
+                }
+
+                // Store adjustments for display
+                hoseAdjustments = {
+                    originalPressure: systemPressure,
+                    pressureDrop: hosePressureDrop,
+                    adjustedPressure: pressure,
+                    originalFlow: pumpFlowNum,
+                    hoseFlow: hoseFlow,
+                    hoseFlowSingle: hoseFlowSingle,
+                    portsPerEnd: portsPerEnd,
+                    adjustedFlow: pumpFlow,
+                    flowLimited: flowLimited
+                };
+
+                console.log('Using Hose Calculator Values:');
+                console.log('Original Pressure:', systemPressure, currentUnits === 'metric' ? 'bar' : 'PSI');
+                console.log('Hose Pressure Drop:', hosePressureDrop, currentUnits === 'metric' ? 'bar' : 'PSI');
+                console.log('Adjusted Pressure:', pressure, currentUnits === 'metric' ? 'bar' : 'PSI');
+                console.log('Original Pump Flow:', pumpFlowNum, currentUnits === 'metric' ? 'L/min' : 'GPM');
+                console.log('Hose Flow per Port:', hoseFlowSingle, currentUnits === 'metric' ? 'L/min' : 'GPM');
+                console.log('Total Hose Flow Capacity (' + portsPerEnd + ' ports):', hoseFlow, currentUnits === 'metric' ? 'L/min' : 'GPM');
+                console.log('Adjusted Flow:', pumpFlow, currentUnits === 'metric' ? 'L/min' : 'GPM');
+            }
+
+            const results = calculateCylinder(bore, stroke, rodDiameter, portDiameter, portsPerEnd, pumpFlow, pressure, viscosity);
+            results.hoseAdjustments = hoseAdjustments; // Add hose adjustments to results
+            displayCylinderResults(results);
+        });
+
+        function calculateCylinder(bore, stroke, rodDiameter, portDiameter, portsPerEnd, pumpFlow, pressure, viscosity) {
+            const boreMM = convertToMM(bore, currentUnits);
+            const strokeMM = convertToMM(stroke, currentUnits);
+            const rodMM = convertToMM(rodDiameter, currentUnits);
+            const portMM = convertToMM(portDiameter, currentUnits);
+            const flowLPM = convertToLPM(pumpFlow, currentUnits);
+            const pressurePa = convertToPa(pressure, currentUnits);
+
+            // Areas in m²
+            const fullArea = Math.PI * Math.pow(boreMM / 2000, 2);
+            const rodArea = Math.PI * Math.pow(rodMM / 2000, 2);
+            const annularArea = fullArea - rodArea;
+            const portArea = Math.PI * Math.pow(portMM / 2000, 2) * portsPerEnd;
+
+            // Forces in N
+            const extensionForce = pressurePa * fullArea;
+            const retractionForce = pressurePa * annularArea;
+            
+            // Buckling analysis (retraction force is compressive on rod)
+            const bucklingAnalysis = calculateEulerBuckling(rodMM, strokeMM, retractionForce);
+
+            const flowM3S = flowLPM / 60000;
+            const fluidType = getCurrentFluidType();
+
+            // Port velocities
+            const portVelocityExt = flowM3S / portArea;
+            const portVelocityRet = flowM3S / portArea;
+
+            // Maximum velocities
+            let maxLaminarVelocityExt, maxLaminarVelocityRet;
+            
+            if (fluidType === 'gas') {
+                const sonicVelocity = 343; // m/s for air at 20°C
+                maxLaminarVelocityExt = sonicVelocity;
+                maxLaminarVelocityRet = sonicVelocity;
+            } else {
+                const laminarReynoldsLimit = 2300;
+                maxLaminarVelocityExt = (laminarReynoldsLimit * viscosity) / (portMM / 1000);
+                maxLaminarVelocityRet = (laminarReynoldsLimit * viscosity) / (portMM / 1000);
+            }
+
+            // Maximum flows
+            const maxLaminarFlowExt = maxLaminarVelocityExt * portArea * 60000;
+            const maxLaminarFlowRet = maxLaminarVelocityRet * portArea * 60000;
+
+            // Cylinder velocities
+            const pumpLimitedVelExt = (flowLPM / 60000) / fullArea * 1000; // mm/s
+            const pumpLimitedVelRet = (flowLPM / 60000) / annularArea * 1000; // mm/s
+
+            const portLimitedVelExt = (maxLaminarFlowExt / 60000) / fullArea * 1000; // mm/s
+            const portLimitedVelRet = (maxLaminarFlowRet / 60000) / annularArea * 1000; // mm/s
+
+            // Determine limiting factors
+            const extLimitedByPort = maxLaminarFlowExt < flowLPM;
+            const retLimitedByPort = maxLaminarFlowRet < flowLPM;
+
+            const finalVelExt = extLimitedByPort ? portLimitedVelExt : pumpLimitedVelExt;
+            const finalVelRet = retLimitedByPort ? portLimitedVelRet : pumpLimitedVelRet;
+
+            return {
+                extensionForce,
+                retractionForce,
+                extensionVelocity: finalVelExt,
+                retractionVelocity: finalVelRet,
+                extensionTime: strokeMM / finalVelExt,
+                retractionTime: strokeMM / finalVelRet,
+                extLimitedByPort,
+                retLimitedByPort,
+                maxFlowExt: maxLaminarFlowExt,
+                maxFlowRet: maxLaminarFlowRet,
+                fluidType,
+                bucklingAnalysis
+            };
+        }
+
+        function displayCylinderResults(results) {
+            // Update rod diameter field styling and label based on buckling analysis
+            const rodDiameterInput = document.getElementById('rodDiameter');
+            const rodDiameterLabel = rodDiameterInput.previousElementSibling;
+            
+            console.log("Buckling Analysis Debug:");
+            console.log("isAdequate:", results.bucklingAnalysis.isAdequate);
+            console.log("minDiameterMM:", results.bucklingAnalysis.minDiameterMM);
+            console.log("rodDiameterInput found:", !!rodDiameterInput);
+            console.log("rodDiameterLabel found:", !!rodDiameterLabel);
+            
+            if (rodDiameterInput && rodDiameterLabel && !results.bucklingAnalysis.isAdequate) {
+                // Rod is too slender - highlight in red and show minimum diameter
+                rodDiameterInput.style.backgroundColor = '#fee2e2';
+                rodDiameterInput.style.borderColor = '#ef4444';
+                rodDiameterInput.style.borderWidth = '2px';
+                
+                const minDiameterDisplay = currentUnits === 'imperial' ? 
+                    (results.bucklingAnalysis.minDiameterMM / 25.4).toFixed(1) + 'in' : 
+                    Math.ceil(results.bucklingAnalysis.minDiameterMM) + 'mm';
+                
+                const lengthUnit = currentUnits === 'imperial' ? 'in' : 'mm';
+                rodDiameterLabel.innerHTML = `Rod Diameter <span style="color: #ef4444; font-weight: bold;">(${minDiameterDisplay} Min)</span> <span id="lengthUnit3">(${lengthUnit})</span>`;
+                
+                console.log("Applied red styling and min diameter:", minDiameterDisplay);
+            } else if (rodDiameterInput && rodDiameterLabel) {
+                // Rod is adequate - reset styling
+                rodDiameterInput.style.backgroundColor = '';
+                rodDiameterInput.style.borderColor = '';
+                rodDiameterInput.style.borderWidth = '';
+                
+                const lengthUnit = currentUnits === 'imperial' ? 'in' : 'mm';
+                rodDiameterLabel.innerHTML = `Rod Diameter <span id="lengthUnit3">(${lengthUnit})</span>`;
+                
+                console.log("Applied normal styling - rod is adequate");
+            } else {
+                console.log("ERROR: Could not find rod diameter input or label elements");
+            }
+            
+            document.getElementById('extensionForce').textContent = convertForDisplay(results.extensionForce, 'force');
+            document.getElementById('retractionForce').textContent = convertForDisplay(results.retractionForce, 'force');
+            
+            // Apply color coding
+            const extVelElement = document.getElementById('extensionVelocity');
+            const retVelElement = document.getElementById('retractionVelocity');
+            
+            extVelElement.textContent = convertForDisplay(results.extensionVelocity, 'velocity');
+            retVelElement.textContent = convertForDisplay(results.retractionVelocity, 'velocity');
+            
+            if (results.extLimitedByPort) {
+                extVelElement.className = 'font-mono text-red-600 bg-red-50 px-2 py-1 rounded';
+            } else {
+                extVelElement.className = 'font-mono text-green-600 bg-green-50 px-2 py-1 rounded';
+            }
+
+            if (results.retLimitedByPort) {
+                retVelElement.className = 'font-mono text-red-600 bg-red-50 px-2 py-1 rounded';
+            } else {
+                retVelElement.className = 'font-mono text-green-600 bg-green-50 px-2 py-1 rounded';
+            }
+
+            document.getElementById('extensionTime').textContent = formatNumber(results.extensionTime) + ' seconds';
+            document.getElementById('retractionTime').textContent = formatNumber(results.retractionTime) + ' seconds';
+
+            // Set limiting factor explanation text
+            const limitingFactorNote = document.getElementById('cylinderLimitingFactorNote');
+            const limitingFactorText = document.getElementById('cylinderLimitingFactorText');
+
+            let flowText = '';
+            let printFlowText = '';
+
+            if (results.extLimitedByPort || results.retLimitedByPort) {
+                const maxFlow = Math.max(results.maxFlowExt, results.maxFlowRet);
+                flowText = 'Velocity is limited by port size (flow restriction)<br>';
+                flowText += 'Flow achieved: ' + convertForDisplay(maxFlow, 'flow');
+                printFlowText = flowText;
+            } else if (results.hoseAdjustments && results.hoseAdjustments.flowLimited) {
+                // Limited by hose flow capacity
+                flowText = 'Velocity is limited by hose flow capacity<br>';
+                flowText += 'Hose flow: ' + convertForDisplay(results.hoseAdjustments.hoseFlow, 'flow');
+                printFlowText = flowText;
+            } else {
+                // Limited by pump flow rate
+                const pumpFlowValue = convertToLPM(document.getElementById('pumpFlow').value, currentUnits);
+                flowText = 'Velocity is limited by pump flow rate<br>';
+                flowText += 'Pump flow: ' + convertForDisplay(pumpFlowValue, 'flow');
+                printFlowText = flowText;
+            }
+
+            limitingFactorText.innerHTML = flowText;
+            limitingFactorNote.style.display = 'block';
+
+            // Update print version
+            const printDiv = document.getElementById('cylinderLimitingFactorPrint');
+            const printText = document.getElementById('limitingFactorPrintText');
+
+            // Only show print limiting factor if NOT using hose adjustments
+            // (because hose adjustments already explain everything in the notes section)
+            if (!results.hoseAdjustments) {
+                printText.innerHTML = printFlowText;
+                printDiv.style.display = 'block';
+            } else {
+                printDiv.style.display = 'none';
+            }
+
+            // Show buckling warning if needed
+            const bucklingWarning = document.getElementById('cylinderBucklingWarning');
+            const bucklingDetails = document.getElementById('bucklingDetails');
+
+            if (!results.bucklingAnalysis.isAdequate) {
+                // Calculate minimum required rod diameter
+                const E = 200e9; // Young's modulus for steel (Pa)
+                const K = 1; // Pin-pin end condition
+                const stroke = convertToMM(document.getElementById('stroke').value, currentUnits) / 1000; // convert to meters
+                const appliedLoad = results.bucklingAnalysis.appliedLoad;
+                const safetyFactor = SAFETY_FACTOR;
+
+                // From Euler's formula: P = (π²EI)/(KL)², and I = πd⁴/64
+                // Solve for d: d = ∛((64 * K * L² * P * SF) / (π³ * E)) * 2
+                const minDiameter = Math.pow((64 * K * Math.pow(stroke, 2) * appliedLoad * safetyFactor) / (Math.pow(Math.PI, 3) * E), 1/4) * 1000; // convert to mm
+
+                bucklingDetails.innerHTML = `<strong>Safety factor: ${formatNumber(results.bucklingAnalysis.safetyFactor, 1)}</strong> (minimum suggested: ${formatNumber(SAFETY_FACTOR, 1)})<br>` +
+                    `Applied load: ${formatNumber(results.bucklingAnalysis.appliedLoad, 0)} N<br>` +
+                    `<strong>Minimum required rod diameter: ${formatNumber(minDiameter, 1)} ${currentUnits === 'metric' ? 'mm' : 'in'}</strong>`;
+                bucklingWarning.style.display = 'block';
+            } else {
+                bucklingWarning.style.display = 'none';
+            }
+            
+            // Notes
+            let notes = '';
+
+            // Add hose adjustment information if applicable
+            if (results.hoseAdjustments) {
+                const pressureUnit = currentUnits === 'metric' ? 'bar' : 'PSI';
+                const flowUnit = currentUnits === 'metric' ? 'L/min' : 'GPM';
+
+                notes += '<p class="mt-2 p-2 bg-green-50 border border-green-200 rounded"><strong>Hose Calculator Adjustments Applied:</strong><br>';
+                notes += `System pressure reduced: ${formatNumber(results.hoseAdjustments.originalPressure)} → ${formatNumber(results.hoseAdjustments.adjustedPressure)} ${pressureUnit} (drop: ${formatNumber(results.hoseAdjustments.pressureDrop)} ${pressureUnit})<br>`;
+
+                if (results.hoseAdjustments.portsPerEnd > 1) {
+                    notes += `Hose flow per port: ${formatNumber(results.hoseAdjustments.hoseFlowSingle)} ${flowUnit} × ${results.hoseAdjustments.portsPerEnd} ports = ${formatNumber(results.hoseAdjustments.hoseFlow)} ${flowUnit} total<br>`;
+                    notes += `<em>(Assumes each port has its own hose)</em><br>`;
+                }
+
+                if (results.hoseAdjustments.flowLimited) {
+                    notes += `Flow limited by hose: ${formatNumber(results.hoseAdjustments.originalFlow)} → ${formatNumber(results.hoseAdjustments.adjustedFlow)} ${flowUnit}`;
+                } else {
+                    notes += `Hose capacity (${formatNumber(results.hoseAdjustments.hoseFlow)} ${flowUnit}) exceeds pump flow`;
+                }
+                notes += '</p>';
+            }
+
+            notes += '<p class="mt-2">Extension Reynolds: ' + formatNumber(calculateReynolds(results.extensionVelocity/1000, convertToMM(document.getElementById('portDiameter').value, currentUnits)/1000, parseFloat(document.getElementById('viscosity').value), results.fluidType), 0) + '</p>';
+            notes += '<p>Retraction Reynolds: ' + formatNumber(calculateReynolds(results.retractionVelocity/1000, convertToMM(document.getElementById('portDiameter').value, currentUnits)/1000, parseFloat(document.getElementById('viscosity').value), results.fluidType), 0) + '</p>';
+            
+            // Add buckling analysis notes
+            if (!results.bucklingAnalysis.isAdequate) {
+                notes += '<p class="mt-2 p-2 bg-red-50 border border-red-200 rounded text-red-800"><strong>⚠️ BUCKLING WARNING:</strong> Rod diameter is insufficient for compression load!</p>';
+                notes += '<p class="text-red-700">• Current safety factor: ' + formatNumber(results.bucklingAnalysis.safetyFactor, 1) + ' (minimum suggested: ' + formatNumber(SAFETY_FACTOR, 1) + ')</p>';
+                notes += '<p class="text-red-700">• Applied load: ' + formatNumber(results.bucklingAnalysis.appliedLoad, 0) + ' N</p>';
+                notes += '<p class="text-red-700">• Allowable load: ' + formatNumber(results.bucklingAnalysis.allowableLoad, 0) + ' N</p>';
+                notes += '<p class="text-red-700">• Material: EN8 Steel, Pin-Pin ends (K=1), L = stroke length</p>';
+            } else {
+                notes += '<p class="mt-2 p-2 bg-green-50 border border-green-200 rounded text-green-800"><strong>✅ BUCKLING OK:</strong> Rod diameter is adequate for compression load</p>';
+                notes += '<p class="text-green-700">• Safety factor: ' + formatNumber(results.bucklingAnalysis.safetyFactor, 1) + ' (exceeds minimum of ' + formatNumber(SAFETY_FACTOR, 1) + ')</p>';
+                notes += '<p class="text-green-700">• Material: EN8 Steel, Pin-Pin ends (K=1), L = stroke length</p>';
+            }
+
+            // Add ISO 6020 compliance note
+            const actualSF = results.bucklingAnalysis.safetyFactor;
+            if (actualSF < 1) {
+                notes += '<p class="mt-2 p-2 bg-red-50 border border-red-200 rounded text-red-800"><strong>⚠️ ISO 6020:</strong> Rod is too thin to comply with ISO 6020 standard (Safety Factor < 1)</p>';
+                notes += '<p class="text-red-700">• For movie SFX work, cylinder should be minimum Intermediate duty (FoS ≥ 2)</p>';
+            } else if (actualSF < 2) {
+                notes += '<p class="mt-2 p-2 bg-amber-50 border border-amber-200 rounded text-amber-800"><strong>⚠️ ISO 6020:</strong> Light Duty Rod (Safety Factor ≥ 1)</p>';
+                notes += '<p class="text-amber-700">• For movie SFX work, cylinder should be minimum Intermediate duty (FoS ≥ 2)</p>';
+            } else if (actualSF < 5) {
+                notes += '<p class="mt-2 p-2 bg-blue-50 border border-blue-200 rounded text-blue-800"><strong>✓ ISO 6020:</strong> Intermediate Duty Rod (Safety Factor ≥ 2)</p>';
+                notes += '<p class="text-blue-700">• Suitable for movie SFX work</p>';
+            } else {
+                notes += '<p class="mt-2 p-2 bg-green-50 border border-green-200 rounded text-green-800"><strong>✓ ISO 6020:</strong> Heavy Duty Rod (Safety Factor ≥ 5)</p>';
+                notes += '<p class="text-green-700">• Exceeds requirements for movie SFX work</p>';
+            }
+            
+            if (results.fluidType === 'gas') {
+                notes += '<p class="mt-2 text-amber-600">⚠️ Gas flow: Limited by choked flow at sonic velocity (~343 m/s for air)</p>';
+            }
+
+            document.getElementById('cylinderNotes').innerHTML = notes;
+
+            // Populate ISO 6020 compliance for print
+            const iso6020Div = document.getElementById('cylinderISO6020');
+            const iso6020Title = document.getElementById('iso6020Title');
+            const iso6020Details = document.getElementById('iso6020Details');
+
+            if (actualSF < 1) {
+                iso6020Div.style.backgroundColor = '#fee2e2';
+                iso6020Div.style.borderColor = '#dc2626';
+                iso6020Title.style.color = '#991b1b';
+                iso6020Title.innerHTML = '⚠️ ISO 6020 COMPLIANCE: Rod is too thin to comply with ISO 6020 standard';
+                iso6020Details.style.color = '#991b1b';
+                iso6020Details.innerHTML = '<strong>ISO 6020 defines three rod duty classifications based on safety factor against buckling:</strong><br>' +
+                    '• Light Duty: Safety Factor ≥ 1<br>' +
+                    '• Intermediate Duty: Safety Factor ≥ 2<br>' +
+                    '• Heavy Duty: Safety Factor ≥ 5<br><br>' +
+                    '<strong>Current Status:</strong> Safety Factor = ' + formatNumber(actualSF, 1) + ' (Does not meet Light Duty minimum)<br><br>' +
+                    '<strong>For Movie SFX Work:</strong> A minimum of Intermediate Duty (FoS ≥ 2) is required to ensure safe operation under dynamic loading conditions and to provide adequate margin for unexpected loads.';
+                iso6020Div.style.display = 'block';
+            } else if (actualSF < 2) {
+                iso6020Div.style.backgroundColor = '#fef3c7';
+                iso6020Div.style.borderColor = '#f59e0b';
+                iso6020Title.style.color = '#92400e';
+                iso6020Title.innerHTML = '⚠️ ISO 6020 COMPLIANCE: Light Duty Rod';
+                iso6020Details.style.color = '#92400e';
+                iso6020Details.innerHTML = '<strong>ISO 6020 defines three rod duty classifications based on safety factor against buckling:</strong><br>' +
+                    '• Light Duty: Safety Factor ≥ 1<br>' +
+                    '• Intermediate Duty: Safety Factor ≥ 2<br>' +
+                    '• Heavy Duty: Safety Factor ≥ 5<br><br>' +
+                    '<strong>Current Status:</strong> Safety Factor = ' + formatNumber(actualSF, 1) + ' (Meets Light Duty requirements)<br><br>' +
+                    '<strong>For Movie SFX Work:</strong> A minimum of Intermediate Duty (FoS ≥ 2) is required to ensure safe operation under dynamic loading conditions and to provide adequate margin for unexpected loads. Consider increasing rod diameter.';
+                iso6020Div.style.display = 'block';
+            } else if (actualSF < 5) {
+                iso6020Div.style.backgroundColor = '#dbeafe';
+                iso6020Div.style.borderColor = '#2563eb';
+                iso6020Title.style.color = '#1e3a8a';
+                iso6020Title.innerHTML = '✓ ISO 6020 COMPLIANCE: Intermediate Duty Rod';
+                iso6020Details.style.color = '#1e3a8a';
+                iso6020Details.innerHTML = '<strong>ISO 6020 defines three rod duty classifications based on safety factor against buckling:</strong><br>' +
+                    '• Light Duty: Safety Factor ≥ 1<br>' +
+                    '• Intermediate Duty: Safety Factor ≥ 2<br>' +
+                    '• Heavy Duty: Safety Factor ≥ 5<br><br>' +
+                    '<strong>Current Status:</strong> Safety Factor = ' + formatNumber(actualSF, 1) + ' (Meets Intermediate Duty requirements)<br><br>' +
+                    '<strong>For Movie SFX Work:</strong> This cylinder meets the minimum requirement of Intermediate Duty (FoS ≥ 2) and is suitable for movie SFX applications.';
+                iso6020Div.style.display = 'block';
+            } else {
+                iso6020Div.style.backgroundColor = '#d1fae5';
+                iso6020Div.style.borderColor = '#059669';
+                iso6020Title.style.color = '#065f46';
+                iso6020Title.innerHTML = '✓ ISO 6020 COMPLIANCE: Heavy Duty Rod';
+                iso6020Details.style.color = '#065f46';
+                iso6020Details.innerHTML = '<strong>ISO 6020 defines three rod duty classifications based on safety factor against buckling:</strong><br>' +
+                    '• Light Duty: Safety Factor ≥ 1<br>' +
+                    '• Intermediate Duty: Safety Factor ≥ 2<br>' +
+                    '• Heavy Duty: Safety Factor ≥ 5<br><br>' +
+                    '<strong>Current Status:</strong> Safety Factor = ' + formatNumber(actualSF, 1) + ' (Meets Heavy Duty requirements)<br><br>' +
+                    '<strong>For Movie SFX Work:</strong> This cylinder exceeds the minimum requirement of Intermediate Duty (FoS ≥ 2) and provides an excellent safety margin for movie SFX applications.';
+                iso6020Div.style.display = 'block';
+            }
+
+            document.getElementById('cylinderResults').style.display = 'block';
+
+            // Enable print button
+            const printBtn = document.getElementById('printCylinder');
+            printBtn.disabled = false;
+            printBtn.classList.remove('bg-gray-400', 'cursor-not-allowed');
+            printBtn.classList.add('bg-green-600', 'hover:bg-green-700', 'cursor-pointer');
+        }
+
+        // Hose calculation
+        document.getElementById('calculateHose').addEventListener('click', function() {
+            const hoseBore = document.getElementById('hoseBore').value;
+            const hoseLength = document.getElementById('hoseLength').value;
+            const elbowCount = document.getElementById('elbowCount').value;
+            const pressure = document.getElementById('pressure').value;
+            const viscosity = parseFloat(document.getElementById('viscosity').value);
+
+            if (!hoseBore || !hoseLength || elbowCount === '' || !pressure) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            const results = calculateHose(hoseBore, hoseLength, elbowCount, pressure, viscosity);
+            displayHoseResults(results);
+        });
+
+        function calculateHose(hoseBore, hoseLength, elbowCount, pressure, viscosity) {
+            const boreMM = convertToMM(hoseBore, currentUnits);
+            const lengthM = currentUnits === 'metric' ? parseFloat(hoseLength) : parseFloat(hoseLength) * 0.3048;
+            const elbows = parseInt(elbowCount);
+            const pressurePa = convertToPa(pressure, currentUnits);
+            const fluidType = getCurrentFluidType();
+
+            // Hose area and diameter
+            const hoseArea = Math.PI * Math.pow(boreMM / 2000, 2);
+            const diameter = boreMM / 1000; // meters
+
+            let maxFlow, maxVelocity, pressureDropHose, pressureDropElbows;
+            
+            if (fluidType === 'gas') {
+                // For gases, still use choked flow limit
+                const sonicVelocity = 343; // m/s for air at 20°C
+                maxVelocity = sonicVelocity;
+                maxFlow = maxVelocity * hoseArea * 60000; // L/min
+                
+                // For gas pressure drop, use simplified approach for compressible flow
+                const flowM3S = maxFlow / 60000;
+                const velocity = flowM3S / hoseArea;
+                
+                // Use isothermal flow approximation for gas
+                const gasConstant = 287; // J/(kg·K) for air
+                const temperature = 293; // K (20°C)
+                const density = pressurePa / (gasConstant * temperature);
+                
+                // For gas flow, use simpler approach - much lower pressure drops
+                const gasVelocityFactor = Math.min(velocity / 100, 1.0); // Scale down for realistic gas pressure drops
+                
+                pressureDropHose = (0.1 * lengthM * gasVelocityFactor) / 100000; // Very low pressure drop in bar
+                pressureDropElbows = (elbows * 0.05 * gasVelocityFactor) / 100000; // Even lower for elbows
+                
+                // Cap at reasonable values for gas systems
+                pressureDropHose = Math.min(pressureDropHose, pressurePa * 0.1 / 100000); // Max 10% of system pressure
+                pressureDropElbows = Math.min(pressureDropElbows, pressurePa * 0.05 / 100000); // Max 5% of system pressure
+            } else {
+                // For liquids, use iterative approach with Colebrook-White/Swamee-Jain
+
+                // Typical hydraulic hose roughness values (meters)
+                const roughness = 0.000045; // 0.045mm - typical for smooth-bore hydraulic hose
+                const relativeRoughness = roughness / diameter;
+
+                // Fluid properties
+                const kinematicViscosity = viscosity; // Already in m²/s
+
+                // Set density based on fluid type
+                let density;
+                if (currentFluidType === 'water') {
+                    density = 1000; // kg/m³ - water
+                } else {
+                    density = 850; // kg/m³ - hydraulic oil
+                }
+
+                // Industry standards for hydraulic hose flow capacity:
+                // 1. Maximum recommended velocity: user-selectable (4.5-9.1 m/s)
+                // 2. Maximum pressure drop: 10% of system pressure
+                const maxRecommendedVelocity = parseFloat(document.getElementById('velocityLimit').value) || 5.5; // m/s
+                const maxPressureDropPercent = 0.10; // 10%
+                const maxAllowablePressureDrop = pressurePa * maxPressureDropPercent;
+
+                // Find velocity that satisfies BOTH constraints using binary search
+                let lowVelocity = 0.1;
+                let highVelocity = maxRecommendedVelocity;
+                let testVelocity = (lowVelocity + highVelocity) / 2;
+                let iterations = 0;
+                const maxIterations = 100;
+
+                while (iterations < maxIterations && (highVelocity - lowVelocity) > 0.001) {
+                    const reynolds = (testVelocity * diameter) / kinematicViscosity;
+
+                    // Calculate friction factor
+                    let frictionFactor;
+                    if (reynolds < 2300) {
+                        frictionFactor = 64 / reynolds;
+                    } else {
+                        const term1 = Math.log10(relativeRoughness / 3.7 + 5.74 / Math.pow(reynolds, 0.9));
+                        frictionFactor = 0.25 / Math.pow(term1, 2);
+                    }
+
+                    // Calculate pressure drop
+                    const straightPressureDrop = frictionFactor * (lengthM / diameter) * (density * Math.pow(testVelocity, 2)) / 2;
+                    const elbowPressureDrop = elbows * 0.9 * (density * Math.pow(testVelocity, 2)) / 2;
+                    const totalPressureDrop = straightPressureDrop + elbowPressureDrop;
+
+                    // Check if we're within 0.1% of max pressure drop
+                    const error = Math.abs(totalPressureDrop - maxAllowablePressureDrop) / maxAllowablePressureDrop;
+
+                    if (error < 0.001) {
+                        // Found solution
+                        maxVelocity = testVelocity;
+                        pressureDropHose = straightPressureDrop / 100000;
+                        pressureDropElbows = elbowPressureDrop / 100000;
+                        break;
+                    }
+
+                    // Adjust search bounds
+                    if (totalPressureDrop < maxAllowablePressureDrop) {
+                        lowVelocity = testVelocity;
+                    } else {
+                        highVelocity = testVelocity;
+                    }
+
+                    testVelocity = (lowVelocity + highVelocity) / 2;
+                    iterations++;
+                }
+
+                // If we hit the velocity limit before pressure drop limit, use velocity limit
+                if (testVelocity >= maxRecommendedVelocity - 0.001) {
+                    maxVelocity = maxRecommendedVelocity;
+
+                    // Recalculate pressure drop at this velocity
+                    const reynolds = (maxVelocity * diameter) / kinematicViscosity;
+                    let frictionFactor;
+                    if (reynolds < 2300) {
+                        frictionFactor = 64 / reynolds;
+                    } else {
+                        const term1 = Math.log10(relativeRoughness / 3.7 + 5.74 / Math.pow(reynolds, 0.9));
+                        frictionFactor = 0.25 / Math.pow(term1, 2);
+                    }
+                    pressureDropHose = (frictionFactor * (lengthM / diameter) * (density * Math.pow(maxVelocity, 2)) / 2) / 100000;
+                    pressureDropElbows = (elbows * 0.9 * (density * Math.pow(maxVelocity, 2)) / 2) / 100000;
+                }
+
+                maxFlow = maxVelocity * hoseArea * 60000; // L/min
+
+                // Determine limiting factor
+                const totalDrop = pressureDropHose + pressureDropElbows;
+                const isVelocityLimited = maxVelocity >= (maxRecommendedVelocity - 0.01);
+                const isPressureLimited = totalDrop >= (maxAllowablePressureDrop / 100000 - 0.1);
+
+                console.log('Hose Calculation (Dual Constraint):');
+                console.log('Max Allowed Velocity:', maxRecommendedVelocity, 'm/s');
+                console.log('Max Allowed Pressure Drop:', (maxAllowablePressureDrop / 100000), 'bar');
+                console.log('Actual Velocity:', maxVelocity, 'm/s');
+                console.log('Actual Pressure Drop:', totalDrop, 'bar');
+                console.log('Limiting Factor:', isVelocityLimited ? 'VELOCITY' : 'PRESSURE DROP');
+                console.log('Max Flow (L/min):', maxFlow);
+                console.log('Iterations:', iterations);
+            }
+
+            const totalPressureDrop = pressureDropHose + pressureDropElbows;
+
+            // Calculate laminar-only flow using Hagen-Poiseuille equation (Re < 2300)
+            let laminarOnlyFlow = null;
+            let laminarOnlyVelocity = null;
+            if (fluidType === 'liquid') {
+                const kinematicViscosity = viscosity; // m²/s
+
+                // Use same density as main calculation
+                let density;
+                if (currentFluidType === 'water') {
+                    density = 1000; // kg/m³ - water
+                } else {
+                    density = 850; // kg/m³ - hydraulic oil
+                }
+
+                const dynamicViscosity = kinematicViscosity * density; // Pa·s (μ = ν × ρ)
+
+                // Available pressure (use same 5% as main calculation)
+                const availablePressure = pressurePa * 0.05;
+
+                // Hagen-Poiseuille equation for laminar flow in circular pipe:
+                // Q = (π × D⁴ × ΔP) / (128 × μ × L)
+                // where Q is in m³/s, D in m, ΔP in Pa, μ in Pa·s, L in m
+                const laminarFlowM3S = (Math.PI * Math.pow(diameter, 4) * availablePressure) /
+                                       (128 * dynamicViscosity * lengthM);
+
+                laminarOnlyFlow = laminarFlowM3S * 60000; // Convert to L/min
+                laminarOnlyVelocity = laminarFlowM3S / hoseArea; // m/s
+
+                // Verify this is actually laminar (Re < 2300)
+                const reynoldsCheck = (laminarOnlyVelocity * diameter) / kinematicViscosity;
+                if (reynoldsCheck >= 2300) {
+                    // Flow would be turbulent, so cap at Re=2300
+                    laminarOnlyVelocity = (2300 * kinematicViscosity) / diameter;
+                    laminarOnlyFlow = laminarOnlyVelocity * hoseArea * 60000;
+                }
+            }
+
+            return {
+                maxLaminarFlow: maxFlow,
+                maxLaminarVelocity: maxVelocity,
+                laminarOnlyFlow: laminarOnlyFlow,
+                laminarOnlyVelocity: laminarOnlyVelocity,
+                pressureDropHose: pressureDropHose,
+                pressureDropElbows: pressureDropElbows,
+                totalPressureDrop: totalPressureDrop,
+                reynolds: calculateReynolds(maxVelocity, diameter, viscosity, fluidType),
+                fluidType,
+                systemPressure: pressurePa / 100000, // bar
+                roughness: fluidType === 'liquid' ? 0.15 : null // mm
+            };
+        }
+
+        function displayHoseResults(results) {
+            // Store results globally for cylinder calculator
+            hoseResults = results;
+
+            // Enable the "Use Hose Values" checkbox
+            const checkbox = document.getElementById('useHoseValues');
+            checkbox.disabled = false;
+
+            document.getElementById('maxFlow').textContent = convertForDisplay(results.maxLaminarFlow, 'flow');
+            document.getElementById('maxVelocity').textContent = formatNumber(results.maxLaminarVelocity) + ' m/s';
+
+            // Display laminar-only flow or N/A for gases
+            const laminarOnlyElement = document.getElementById('laminarOnlyFlow');
+            if (results.laminarOnlyFlow !== null) {
+                laminarOnlyElement.textContent = convertForDisplay(results.laminarOnlyFlow, 'flow');
+            } else {
+                laminarOnlyElement.textContent = 'N/A (gas)';
+            }
+
+            document.getElementById('reynolds').textContent = formatNumber(results.reynolds, 0);
+            document.getElementById('systemPressure').textContent = convertForDisplay(results.systemPressure, 'pressure');
+
+            document.getElementById('pressureDropHose').textContent = convertForDisplay(results.pressureDropHose, 'pressure');
+            document.getElementById('pressureDropElbows').textContent = convertForDisplay(results.pressureDropElbows, 'pressure');
+            document.getElementById('totalPressureDrop').textContent = convertForDisplay(results.totalPressureDrop, 'pressure');
+
+            document.getElementById('recommendedFlow').textContent = convertForDisplay(results.maxLaminarFlow, 'flow');
+            
+            // Notes
+            let notes = '';
+            if (results.fluidType === 'gas') {
+                notes = `
+                    <p>• Gas flow limited by choked flow at sonic velocity (~343 m/s for air)</p>
+                    <p>• Gas pressure drop uses simplified isothermal flow approximation</p>
+                    <p>• Actual gas flow pressure drop requires complex compressible flow analysis</p>
+                    <p>• Results are rough estimates - consult gas flow specialist for critical applications</p>
+                `;
+            } else {
+                notes = `
+                    <p>• Max Flow limited by LOWER of: selected velocity limit OR pressure drop (10% of system pressure)</p>
+                    <p>• Pressure drop calculated using Swamee-Jain equation for turbulent flow</p>
+                    <p>• Laminar Only Flow uses Hagen-Poiseuille equation</p>
+                    <p>• Hose roughness: ${results.roughness}mm (smooth-bore hydraulic hose)</p>
+                    <p>• Each 90° elbow: K-factor = 0.9 (modern hydraulic fittings)</p>
+                    <p>• Adjust velocity limit based on application: 4.5 m/s (continuous) to 9.1 m/s (peak)</p>
+                `;
+            }
+            
+            document.getElementById('hoseNotes').innerHTML = notes;
+            document.getElementById('hoseResults').style.display = 'block';
+
+            // Enable print button
+            const printBtn = document.getElementById('printHose');
+            printBtn.disabled = false;
+            printBtn.classList.remove('bg-gray-400', 'cursor-not-allowed');
+            printBtn.classList.add('bg-green-600', 'hover:bg-green-700', 'cursor-pointer');
+        }
+
+        // Initialize
+        updateUnitLabels();
+    </script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const fluidDropdown = document.getElementById('fluidType');
+    const cannonTab = document.getElementById('cannonTab');
+    const allowedFluids = ['air', 'nitrogen'];
+
+    function updateCannonTabVisibility() {
+        const selected = fluidDropdown.value;
+        if (allowedFluids.includes(selected)) {
+            cannonTab.style.opacity = '1';
+            cannonTab.style.pointerEvents = 'auto';
+            cannonTab.style.cursor = 'pointer';
+        } else {
+            cannonTab.style.opacity = '0.4';
+            cannonTab.style.pointerEvents = 'none';
+            cannonTab.style.cursor = 'not-allowed';
+            document.getElementById('hoseCalculator').style.display = 'block';
+            document.getElementById('cylinderCalculator').style.display = 'none';
+            document.getElementById('cannonCalculator').style.display = 'none';
+            setActiveTab('hoseTab');
+        }
+    }
+
+    // Initial check on load
+    updateCannonTabVisibility();
+
+    // Attach change listener
+    fluidDropdown.addEventListener('change', function () {
+        currentFluidType = this.value;
+        document.getElementById('viscosity').value = viscosityPresets[currentFluidType].value;
+        document.getElementById('cylinderResults').style.display = 'none';
+        document.getElementById('hoseResults').style.display = 'none';
+        updateCannonTabVisibility();
+    });
+});
+
+
+
+
+function setActiveTab(activeId) {
+    const tabs = ['hoseTab', 'cylinderTab', 'cannonTab'];
+    tabs.forEach(id => {
+        const tab = document.getElementById(id);
+        if (tab) {
+            if (id === activeId) {
+                // Active tab styling
+                tab.classList.add('text-white', 'bg-blue-600', 'border-blue-700');
+                tab.classList.remove('text-gray-700', 'bg-gray-200', 'border-transparent');
+                tab.setAttribute('aria-selected', 'true');
+            } else {
+                // Inactive tab styling
+                tab.classList.remove('text-white', 'bg-blue-600', 'border-blue-700');
+                tab.classList.add('text-gray-700', 'bg-gray-200', 'border-transparent');
+                tab.setAttribute('aria-selected', 'false');
+            }
+        }
+    });
+}
+        
+
+
+
+
+
+
+
+
+document.getElementById('cannonTab').addEventListener('click', function () {
+    setActiveTab('cannonTab');
+    document.getElementById('hoseCalculator').classList.add('hidden');
+    document.getElementById('cylinderCalculator').classList.add('hidden');
+    document.getElementById('cannonCalculator').classList.remove('hidden');
+
+    // Sync pressure display when switching to cannon tab
+    updateCannonPressureDisplay();
+});
+
+// Cannon Calculator Event Handler
+document.getElementById('calculateCannon').addEventListener('click', function () {
+    // Get pressure from system settings
+    const systemPressure = document.getElementById("pressure").value;
+
+    if (!systemPressure) {
+        alert('Please set System Pressure in System Settings above');
+        return;
+    }
+
+    // Read all input values
+    const stroke = document.getElementById("cannonStroke").value;
+    const diameter = document.getElementById("cannonDiameter").value;
+    const v1 = document.getElementById("cannonV1").value;
+    const vstart = document.getElementById("cannonVstart").value;
+    const mass = document.getElementById("cannonMass").value;
+    const efficiency = document.getElementById("cannonEfficiency").value;
+    const steps = document.getElementById("cannonSteps").value;
+    const orifice = document.getElementById("cannonOrifice").value;
+    const numPorts = document.getElementById("cannonNumPorts").value;
+
+    if (!stroke || !diameter || !v1 || !vstart || !mass || !efficiency || !steps || !orifice || !numPorts) {
+        alert('Please fill in all cannon calculator fields');
+        return;
+    }
+
+    // Convert inputs to metric (SI) for calculation
+    const params = {
+        p0: convertToPa(systemPressure, currentUnits) / 100000, // Convert to bar
+        stroke: convertStrokeToM(stroke, currentUnits), // Convert to m
+        diameter: convertToMM(diameter, currentUnits), // Convert to mm
+        v1: convertVolumeToL(v1, currentUnits), // Convert to L
+        vstart: convertVolumeToL(vstart, currentUnits), // Convert to L
+        mass: convertMassToKg(mass, currentUnits), // Convert to kg
+        efficiency: parseFloat(efficiency), // Already in %
+        steps: parseInt(steps),
+        orifice: convertToMM(orifice, currentUnits), // Convert to mm
+        numPorts: parseInt(numPorts) // Number of ports
+    };
+
+    // Run simulation
+    const results = simulateGasExpansion(params);
+
+    // Display results
+    buildCannonCharts(results);
+    updateCannonSummary(results);
+    updateCannonTable(results);
+
+    // Show results section
+    document.getElementById('cannonResults').style.display = 'block';
+    document.getElementById('cannonPrintNotes').style.display = 'block';
+
+    // Enable print button
+    const printBtn = document.getElementById('printCannon');
+    printBtn.disabled = false;
+    printBtn.classList.remove('bg-gray-400', 'cursor-not-allowed');
+    printBtn.classList.add('bg-green-600', 'hover:bg-green-700', 'cursor-pointer');
+});
+
+// Cannon Calculator Functions
+function simulateGasExpansion(params) {
+    const gamma = 1.4;
+    const R = 287; // J/(kg·K) for air
+    const T = 293; // K (20°C)
+
+    const p0 = params.p0 * 1e5; // Convert bar to Pascals
+    const stroke = params.stroke; // Already in meters
+    const steps = params.steps;
+    const dt = 0.001; // Time step for flow calculations
+
+    const diameter_m = params.diameter / 1000; // Convert mm to m
+    const area = Math.PI * Math.pow(diameter_m / 2, 2); // Cylinder area in m²
+    const stepLength = stroke / steps;
+    const volumeStep = area * stepLength;
+
+    const V_res = params.v1 / 1000; // Convert L to m³
+    let m_res = (p0 * V_res) / (R * T); // Initial mass in reservoir
+
+    const V_cyl0 = params.vstart / 1000; // Convert L to m³
+    let V_cyl = V_cyl0;
+    let m_cyl = 0;
+
+    // Cap orifice diameter at bore diameter
+    const orifice_d = Math.min(params.orifice, params.diameter) / 1000; // Convert to m
+    const A_orifice = Math.PI * Math.pow(orifice_d / 2, 2) * params.numPorts; // Multiply by number of ports
+
+    // Choked flow rate calculation
+    const maxFlowRate = (p, T) => p * A_orifice * Math.sqrt(gamma / (R * T)) *
+        Math.pow(2 / (gamma + 1), (gamma + 1) / (2 * (gamma - 1)));
+
+    const mass = params.mass; // kg
+    const efficiency = params.efficiency / 100;
+
+    let data = [];
+    let workDone = 0;
+
+    for (let i = 0; i <= steps; i++) {
+        const displacement = i * stepLength; // in meters
+
+        const p_res = (m_res * R * T) / V_res;
+        const p_cyl = (m_cyl * R * T) / V_cyl;
+        let dm = 0;
+
+        // Determine flow regime (choked or subsonic)
+        if (p_res > p_cyl * Math.pow(2 / (gamma + 1), gamma / (gamma - 1))) {
+            dm = maxFlowRate(p_res, T) * dt;
+        } else {
+            const deltaP = Math.max(0, p_res - p_cyl);
+            const subsonicFlow = A_orifice * p_res * Math.sqrt((2 / (R * T)) * (deltaP / p_res));
+            dm = Math.max(0, subsonicFlow * dt);
+        }
+
+        dm = Math.min(dm, m_res);
+        m_res -= dm;
+        m_cyl += dm;
+
+        V_cyl += volumeStep;
+
+        const p = Math.min((m_cyl * R * T) / V_cyl, p_res);
+        const force = p * area;
+        const work = force * stepLength;
+        workDone += work;
+        const velocity = Math.sqrt(2 * workDone * efficiency / mass);
+        const kineticEnergy = 0.5 * mass * velocity * velocity;
+        const temperature = 1; // Placeholder for future temperature calculations
+
+        data.push({
+            displacement,
+            pressure: p / 1e5, // Convert Pa to bar
+            force,
+            velocity,
+            kineticEnergy,
+            temperature
+        });
+    }
+
+    return data;
+}
+
+function buildCannonCharts(data) {
+    const ctxForce = document.getElementById("cannonForceChart").getContext("2d");
+    const ctxVel = document.getElementById("cannonVelocityChart").getContext("2d");
+    const ctxKE = document.getElementById("cannonKineticChart").getContext("2d");
+
+    // Destroy existing charts
+    if (window.cannonForceChart && typeof window.cannonForceChart.destroy === 'function') {
+        window.cannonForceChart.destroy();
+    }
+    if (window.cannonVelocityChart && typeof window.cannonVelocityChart.destroy === 'function') {
+        window.cannonVelocityChart.destroy();
+    }
+    if (window.cannonKineticChart && typeof window.cannonKineticChart.destroy === 'function') {
+        window.cannonKineticChart.destroy();
+    }
+
+    // Prepare labels and data with unit conversions
+    const labels = data.map(d => convertCannonForDisplay(d.displacement, 'displacement'));
+
+    window.cannonForceChart = new Chart(ctxForce, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Force (' + (currentUnits === 'imperial' ? 'lbf' : 'N') + ')',
+                data: data.map(d => currentUnits === 'imperial' ? d.force * 0.224809 : d.force),
+                borderWidth: 2,
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Displacement (' + (currentUnits === 'imperial' ? 'ft' : 'm') + ')'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Force (' + (currentUnits === 'imperial' ? 'lbf' : 'N') + ')'
+                    }
+                }
+            }
+        }
+    });
+
+    window.cannonVelocityChart = new Chart(ctxVel, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Velocity (' + (currentUnits === 'imperial' ? 'ft/s' : 'm/s') + ')',
+                data: data.map(d => currentUnits === 'imperial' ? d.velocity / 0.3048 : d.velocity),
+                borderWidth: 2,
+                fill: false,
+                borderColor: 'rgb(255, 99, 132)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Displacement (' + (currentUnits === 'imperial' ? 'ft' : 'm') + ')'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Velocity (' + (currentUnits === 'imperial' ? 'ft/s' : 'm/s') + ')'
+                    }
+                }
+            }
+        }
+    });
+
+    window.cannonKineticChart = new Chart(ctxKE, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Kinetic Energy (' + (currentUnits === 'imperial' ? 'ft-lbf' : 'J') + ')',
+                data: data.map(d => currentUnits === 'imperial' ? d.kineticEnergy * 0.737562 : d.kineticEnergy),
+                borderWidth: 2,
+                fill: false,
+                borderColor: 'rgb(54, 162, 235)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Displacement (' + (currentUnits === 'imperial' ? 'ft' : 'm') + ')'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Kinetic Energy (' + (currentUnits === 'imperial' ? 'ft-lbf' : 'J') + ')'
+                    }
+                }
+            }
+        }
+    });
+}
+
+function updateCannonSummary(data) {
+    const maxKE = Math.max(...data.map(d => d.kineticEnergy));
+    const mass = parseFloat(document.getElementById('cannonMass').value);
+
+    // Calculate max throw height: KE = PE, so ½mv² = mgh, therefore h = KE/(mg)
+    const g = 9.81; // m/s²
+    const maxHeight = maxKE / (mass * g); // in meters
+
+    const summary = {
+        'Max Cylinder Pressure': { value: Math.max(...data.map(d => d.pressure)), type: 'pressure' },
+        'Max Force': { value: Math.max(...data.map(d => d.force)), type: 'force' },
+        'Max Velocity': { value: Math.max(...data.map(d => d.velocity)), type: 'velocity' },
+        'Max Kinetic Energy': { value: maxKE, type: 'kineticEnergy' },
+        'Max Throw Height': { value: maxHeight, type: 'displacement' }
+    };
+
+    const table = document.getElementById("cannonSummaryTable");
+    table.innerHTML = '<tr><th>Quantity</th><th>Value</th></tr>';
+
+    Object.entries(summary).forEach(([key, data]) => {
+        table.innerHTML += `<tr><td>${key}</td><td>${convertCannonForDisplay(data.value, data.type)}</td></tr>`;
+    });
+}
+
+function updateCannonTable(data) {
+    const table = document.getElementById("cannonResultsTable");
+    const dispUnit = currentUnits === 'imperial' ? 'ft' : 'm';
+    const pressUnit = currentUnits === 'imperial' ? 'PSI' : 'bar';
+    const forceUnit = currentUnits === 'imperial' ? 'lbf' : 'N';
+    const velUnit = currentUnits === 'imperial' ? 'ft/s' : 'm/s';
+    const keUnit = currentUnits === 'imperial' ? 'ft-lbf' : 'J';
+
+    table.innerHTML = `<tr>
+        <th>Displacement (${dispUnit})</th>
+        <th>Pressure (${pressUnit})</th>
+        <th>Force (${forceUnit})</th>
+        <th>Velocity (${velUnit})</th>
+        <th>Kinetic Energy (${keUnit})</th>
+    </tr>`;
+
+    for (let i = 0; i < data.length; i += 5) {
+        const d = data[i];
+        table.innerHTML += `<tr>
+            <td>${convertCannonForDisplay(d.displacement, 'displacement')}</td>
+            <td>${convertCannonForDisplay(d.pressure, 'pressure')}</td>
+            <td>${convertCannonForDisplay(d.force, 'force')}</td>
+            <td>${convertCannonForDisplay(d.velocity, 'velocity')}</td>
+            <td>${convertCannonForDisplay(d.kineticEnergy, 'kineticEnergy')}</td>
+        </tr>`;
+    }
+}
+
+// Print functionality - prepare input summary before printing
+function preparePrintView() {
+    const unitSystem = document.getElementById('units').value;
+    const fluidType = document.getElementById('fluidType').value;
+
+    // Helper function to get value or placeholder
+    const getValue = (id) => {
+        const elem = document.getElementById(id);
+        return elem.value || elem.placeholder || '--';
+    };
+
+    // Determine which tab is visible
+    let currentTab = null;
+    if (document.getElementById('hoseCalculator').style.display !== 'none') {
+        currentTab = document.getElementById('hoseCalculator');
+    } else if (document.getElementById('cylinderCalculator').style.display !== 'none') {
+        currentTab = document.getElementById('cylinderCalculator');
+    } else if (document.getElementById('cannonCalculator').style.display !== 'none') {
+        currentTab = document.getElementById('cannonCalculator');
+    }
+
+    const date = new Date().toLocaleDateString('en-GB', {
+        year: 'numeric', month: 'long', day: 'numeric'
+    });
+
+    document.getElementById('printDate').textContent = `Generated: ${date}`;
+
+    const inputsBody = document.getElementById('printInputsBody');
+    inputsBody.innerHTML = '';
+
+    // Add common system settings
+    const fluidNames = {
+        'hydraulic': 'Hydraulic Fluid (ISO 32)',
+        'water': 'Water',
+        'air': 'Air',
+        'nitrogen': 'Nitrogen Gas'
+    };
+
+    inputsBody.innerHTML += `<tr><td><strong>Unit System</strong></td><td>${unitSystem === 'metric' ? 'Metric' : 'Imperial'}</td></tr>`;
+    inputsBody.innerHTML += `<tr><td><strong>Fluid Type</strong></td><td>${fluidNames[fluidType]}</td></tr>`;
+    inputsBody.innerHTML += `<tr><td><strong>Kinematic Viscosity</strong></td><td>${getValue('viscosity')} m^2/s</td></tr>`;
+    inputsBody.innerHTML += `<tr><td><strong>System Pressure</strong></td><td>${getValue('pressure')} ${unitSystem === 'metric' ? 'bar' : 'PSI'}</td></tr>`;
+    inputsBody.innerHTML += `<tr><td><strong>Operating Temperature</strong></td><td>${getValue('temperature')} deg C</td></tr>`;
+
+    // Separator row
+    inputsBody.innerHTML += `<tr style="background-color: #d0d0d0 !important;"><td colspan="2" style="padding: 4px !important; font-weight: bold; text-align: center;">Calculator Specific Parameters</td></tr>`;
+
+    // Hide all footnotes first
+    document.getElementById('hoseFootnote').style.display = 'none';
+    document.getElementById('cylinderFootnote').style.display = 'none';
+    document.getElementById('cannonFootnote').style.display = 'none';
+
+    // Remove all calculator body classes
+    document.body.classList.remove('cannon-active', 'hose-active', 'cylinder-active');
+
+    // Determine which calculator is active
+    if (currentTab.id === 'hoseCalculator') {
+        document.body.classList.add('hose-active');
+        document.getElementById('hoseFootnote').style.display = 'block';
+        document.getElementById('printCalculatorTitle').textContent = 'Hose & Elbow Pressure Drop Calculator';
+
+        const lengthUnit = unitSystem === 'metric' ? 'm' : 'ft';
+        const boreUnit = unitSystem === 'metric' ? 'mm' : 'in';
+
+        inputsBody.innerHTML += `<tr><td><strong>Hose Bore</strong></td><td>${getValue('hoseBore')} ${boreUnit}</td></tr>`;
+        inputsBody.innerHTML += `<tr><td><strong>Hose Length</strong></td><td>${getValue('hoseLength')} ${lengthUnit}</td></tr>`;
+        inputsBody.innerHTML += `<tr><td><strong>Number of Elbows</strong></td><td>${getValue('elbowCount')}</td></tr>`;
+
+    } else if (currentTab.id === 'cylinderCalculator') {
+        document.body.classList.add('cylinder-active');
+        document.getElementById('cylinderFootnote').style.display = 'block';
+        document.getElementById('printCalculatorTitle').textContent = 'Hydraulic Cylinder Calculator';
+
+        const lengthUnit = unitSystem === 'metric' ? 'mm' : 'in';
+        const flowUnit = unitSystem === 'metric' ? 'L/min' : 'GPM';
+
+        inputsBody.innerHTML += `<tr><td><strong>Bore Diameter</strong></td><td>${getValue('bore')} ${lengthUnit}</td></tr>`;
+        inputsBody.innerHTML += `<tr><td><strong>Stroke Length</strong></td><td>${getValue('stroke')} ${lengthUnit}</td></tr>`;
+        inputsBody.innerHTML += `<tr><td><strong>Rod Diameter</strong></td><td>${getValue('rodDiameter')} ${lengthUnit}</td></tr>`;
+        inputsBody.innerHTML += `<tr><td><strong>Port Size</strong></td><td>${getValue('portSize')}</td></tr>`;
+        inputsBody.innerHTML += `<tr><td><strong>Port Diameter</strong></td><td>${getValue('portDiameter')} ${lengthUnit}</td></tr>`;
+        inputsBody.innerHTML += `<tr><td><strong>Ports per End</strong></td><td>${getValue('portsPerEnd')}</td></tr>`;
+        inputsBody.innerHTML += `<tr><td><strong>Pump Flow Rate</strong></td><td>${getValue('pumpFlow')} ${flowUnit}</td></tr>`;
+        inputsBody.innerHTML += `<tr><td><strong>Safety Factor</strong></td><td>${getValue('safetyFactor')}</td></tr>`;
+
+    } else if (currentTab.id === 'cannonCalculator') {
+        document.body.classList.add('cannon-active');
+        document.getElementById('cannonFootnote').style.display = 'block';
+        document.getElementById('printCalculatorTitle').textContent = 'Gas Expansion Cannon Calculator';
+
+        const strokeUnit = unitSystem === 'metric' ? 'm' : 'ft';
+        const diameterUnit = unitSystem === 'metric' ? 'mm' : 'in';
+        const volumeUnit = unitSystem === 'metric' ? 'L' : 'pints';
+        const massUnit = unitSystem === 'metric' ? 'kg' : 'lbs';
+
+        inputsBody.innerHTML += `<tr><td><strong>Stroke Length</strong></td><td>${getValue('cannonStroke')} ${strokeUnit}</td></tr>`;
+        inputsBody.innerHTML += `<tr><td><strong>Cylinder Diameter</strong></td><td>${getValue('cannonDiameter')} ${diameterUnit}</td></tr>`;
+        inputsBody.innerHTML += `<tr><td><strong>Reservoir Volume</strong></td><td>${getValue('cannonV1')} ${volumeUnit}</td></tr>`;
+        inputsBody.innerHTML += `<tr><td><strong>Pre-expansion Volume</strong></td><td>${getValue('cannonVstart')} ${volumeUnit}</td></tr>`;
+        inputsBody.innerHTML += `<tr><td><strong>Mass</strong></td><td>${getValue('cannonMass')} ${massUnit}</td></tr>`;
+        inputsBody.innerHTML += `<tr><td><strong>Port Orifice Diameter</strong></td><td>${getValue('cannonOrifice')} ${diameterUnit}</td></tr>`;
+        inputsBody.innerHTML += `<tr><td><strong>Number of Ports</strong></td><td>${getValue('cannonNumPorts')}</td></tr>`;
+        inputsBody.innerHTML += `<tr><td><strong>System Efficiency</strong></td><td>${getValue('cannonEfficiency')}%</td></tr>`;
+        inputsBody.innerHTML += `<tr><td><strong>Calculation Steps</strong></td><td>${getValue('cannonSteps')}</td></tr>`;
+    }
+}
+
+// Call preparePrintView before printing
+window.addEventListener('beforeprint', preparePrintView);
+
+// Print button event listeners
+document.getElementById('printHose').addEventListener('click', function() {
+    window.print();
+});
+
+document.getElementById('printCylinder').addEventListener('click', function() {
+    window.print();
+});
+
+document.getElementById('printCannon').addEventListener('click', function() {
+    window.print();
+});
+
+</script>
+
+<!-- Limiting Factor (print only) -->
+<div id="cylinderLimitingFactorPrint" style="display: none; margin-top: 1em;" class="print-only mb-4 p-3 bg-gray-100 border-2 border-gray-400 rounded">
+<p class="font-bold text-gray-800" style="font-size: 11pt;" id="limitingFactorPrintText"></p>
+</div>
+
+<!-- ISO 6020 Compliance (print only) -->
+<div id="cylinderISO6020" style="display: none; margin-top: 3em;" class="print-only print-page-break mb-4 p-3 border-2 rounded">
+<p class="font-bold" style="font-size: 11pt;" id="iso6020Title"></p>
+<p class="mt-1" id="iso6020Details"></p>
+</div>
+
+<!-- Print-only Footer with Calculation Methods -->
+<div class="print-footer" style="display: none;">
+    <h3>Calculation Methods & Assumptions</h3>
+
+    <div id="hoseFootnote" style="display: none;">
+        <p><strong>Hose & Elbow Flow Capacity Calculator:</strong></p>
+        <p><strong>Maximum Flow Calculation Method:</strong></p>
+        <p>• Flow capacity is limited by the LOWER of two constraints:</p>
+        <p>&nbsp;&nbsp;&nbsp;1. <strong>Velocity Limit:</strong> User-selectable from 4.5 m/s (continuous) to 9.1 m/s (peak/transient)</p>
+        <p>&nbsp;&nbsp;&nbsp;2. <strong>Pressure Drop Limit:</strong> 10% of system pressure (industry standard for hydraulic hoses)</p>
+        <p>• For short hoses at typical system pressures, the <strong>velocity limit</strong> usually controls</p>
+        <p>• For long hoses or low system pressures, the <strong>pressure drop limit</strong> may control</p>
+        <p><strong>Pressure Drop Calculation:</strong></p>
+        <p>• Uses Swamee-Jain equation (explicit Colebrook-White approximation) for friction factor</p>
+        <p>• Darcy-Weisbach equation: ΔP = f × (L/D) × (ρv²/2) for straight pipe pressure drop</p>
+        <p>• Hose roughness: 0.045mm (smooth-bore hydraulic hose typical value)</p>
+        <p>• Accounts for both laminar (Re &lt; 2300) and turbulent (Re ≥ 2300) flow regimes</p>
+        <p>• Elbow losses: K-factor = 0.9 per 90° elbow (modern hydraulic fittings)</p>
+        <p><strong>Laminar Only Flow:</strong></p>
+        <p>• Uses Hagen-Poiseuille equation: Q = (π × D⁴ × ΔP) / (128 × μ × L)</p>
+        <p>• Shows maximum flow that maintains laminar conditions (Re &lt; 2300)</p>
+        <p>• Capped at Reynolds number 2300 if pressure-based calculation exceeds laminar limit</p>
+        <p><strong>Velocity Limit Guidelines (empirically derived from industry experience):</strong></p>
+        <p>• 4.5 m/s (15 fps): Continuous flow, maximum hose life, minimal erosion</p>
+        <p>• 5.5 m/s (18 fps): Industry standard for typical applications</p>
+        <p>• 6.0 m/s (20 fps): Intermittent flow, acceptable for periodic operation</p>
+        <p>• 7.6 m/s (25 fps): Short duration events (seconds to minutes)</p>
+        <p>• 9.1 m/s (30 fps): Peak/transient events only (fractions of a second)</p>
+        <p><strong>Assumptions & Limitations:</strong></p>
+        <p>• Fluid properties based on standard conditions (20°C, atmospheric pressure)</p>
+        <p>• Does not account for entrance/exit losses or fittings other than 90° elbows</p>
+        <p>• Assumes steady-state flow (no surge, water hammer, or transient effects)</p>
+        <p>• Does not include coupling losses (typically ~5% of hose loss per coupling pair)</p>
+    </div>
+
+    <div id="cylinderFootnote" style="display: none;">
+        <p><strong>Hydraulic Cylinder Calculator:</strong></p>
+        <p>• Force calculations based on Pascal's law (Force = Pressure × Area)</p>
+        <p>• Rod buckling analysis uses Euler's critical load formula</p>
+        <p>• Assumes incompressible fluid and rigid cylinder construction</p>
+        <p>• Velocity and time calculations assume constant flow rate</p>
+        <p>• Port velocity uses continuity equation and total port area</p>
+        <p>• Does not account for seal friction, internal leakage, or dynamic effects</p>
+    </div>
+
+    <div id="cannonFootnote" style="display: none;">
+        <p><strong>Gas Expansion Cannon Calculator:</strong></p>
+        <p>• Ideal gas law (PV = nRT) with γ = 1.4 for air/nitrogen</p>
+        <p>• Choked flow calculation for orifice restrictions</p>
+        <p>• Isothermal expansion assumed (T = 293K / 20°C)</p>
+        <p>• Energy transfer efficiency accounts for friction and heat losses</p>
+        <p>• Max throw height calculated from kinetic energy conversion (KE = PE)</p>
+        <p>• Does not account for aerodynamic drag, barrel friction variations, or valve opening dynamics</p>
+        <p style="margin-top: 3px; font-style: italic;">Based on Alex (Lec) Fabre's excellent cannon calculator</p>
+    </div>
+</div>
+
+</div>
+</div>
+</body>
+</html>

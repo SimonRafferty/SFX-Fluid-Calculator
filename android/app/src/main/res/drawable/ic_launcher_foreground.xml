@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Hydraulic Cylinder Icon - matches PWA favicon -->
+    <!-- Offset to center in 108x108 viewport (center at 54,54) -->
+
+    <!-- Cylinder Body -->
+    <path
+        android:fillColor="#E5E7EB"
+        android:strokeColor="#374151"
+        android:strokeWidth="2"
+        android:pathData="M24,39 L74,39 Q77,39 77,42 L77,66 Q77,69 74,69 L24,69 Q21,69 21,66 L21,42 Q21,39 24,39 Z" />
+
+    <!-- Piston Rod -->
+    <path
+        android:fillColor="#9CA3AF"
+        android:strokeColor="#374151"
+        android:strokeWidth="1.5"
+        android:pathData="M9,49 L30,49 L30,59 L9,59 Z" />
+
+    <!-- Rod End Circle -->
+    <path
+        android:fillColor="#6B7280"
+        android:strokeColor="#374151"
+        android:strokeWidth="1.5"
+        android:pathData="M9,54 m-8,0 a8,8 0 1,1 16,0 a8,8 0 1,1 -16,0" />
+
+    <!-- Cylinder End Cap -->
+    <path
+        android:fillColor="#D1D5DB"
+        android:strokeColor="#374151"
+        android:strokeWidth="1.5"
+        android:pathData="M74,39 L82,39 L82,69 L74,69 Z" />
+
+    <!-- Port Connection - Red (Pressure) -->
+    <path
+        android:fillColor="#EF4444"
+        android:strokeColor="#DC2626"
+        android:strokeWidth="1"
+        android:pathData="M39,34 m-3,0 a3,3 0 1,1 6,0 a3,3 0 1,1 -6,0" />
+
+    <!-- Port Connection - Blue (Return) -->
+    <path
+        android:fillColor="#3B82F6"
+        android:strokeColor="#2563EB"
+        android:strokeWidth="1"
+        android:pathData="M59,34 m-3,0 a3,3 0 1,1 6,0 a3,3 0 1,1 -6,0" />
+
+    <!-- Hydraulic Lines -->
+    <path
+        android:strokeColor="#DC2626"
+        android:strokeWidth="2"
+        android:pathData="M39,34 L39,19" />
+
+    <path
+        android:strokeColor="#2563EB"
+        android:strokeWidth="2"
+        android:pathData="M59,34 L59,19" />
+
+    <!-- Mounting Points -->
+    <path
+        android:fillColor="#374151"
+        android:pathData="M29,54 m-2,0 a2,2 0 1,1 4,0 a2,2 0 1,1 -4,0" />
+
+    <path
+        android:fillColor="#374151"
+        android:pathData="M69,54 m-2,0 a2,2 0 1,1 4,0 a2,2 0 1,1 -4,0" />
+
+</vector>

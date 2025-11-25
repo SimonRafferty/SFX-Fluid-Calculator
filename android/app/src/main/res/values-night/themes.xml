@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.SFXFluidCalc" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/blue_600</item>
+        <item name="colorPrimaryVariant">@color/blue_800</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">@color/blue_600</item>
+        <item name="colorSecondaryVariant">@color/blue_700</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <!-- Status bar color -->
+        <item name="android:statusBarColor">@color/blue_800</item>
+        <item name="android:navigationBarColor">@color/black</item>
+
+        <!-- Background -->
+        <item name="android:windowBackground">@color/gray_50</item>
+    </style>
+</resources>

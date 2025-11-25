@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary colors matching the PWA theme -->
+    <color name="blue_600">#2563eb</color>
+    <color name="blue_700">#1d4ed8</color>
+    <color name="blue_800">#1e40af</color>
+
+    <!-- Background colors -->
+    <color name="gray_50">#f9fafb</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+
+    <!-- Status bar color -->
+    <color name="status_bar">#1e40af</color>
+</resources>
