@@ -2314,17 +2314,29 @@ function preparePrintView() {
 // Call preparePrintView before printing
 window.addEventListener('beforeprint', preparePrintView);
 
+// Cross-platform print function - uses Android interface if available
+function doPrint() {
+    preparePrintView();
+    // Check if running in Android WebView with our print interface
+    if (typeof AndroidPrint !== 'undefined' && AndroidPrint.print) {
+        AndroidPrint.print();
+    } else {
+        // Standard browser print
+        window.print();
+    }
+}
+
 // Print button event listeners
 document.getElementById('printHose').addEventListener('click', function() {
-    window.print();
+    doPrint();
 });
 
 document.getElementById('printCylinder').addEventListener('click', function() {
-    window.print();
+    doPrint();
 });
 
 document.getElementById('printCannon').addEventListener('click', function() {
-    window.print();
+    doPrint();
 });
 
 </script>

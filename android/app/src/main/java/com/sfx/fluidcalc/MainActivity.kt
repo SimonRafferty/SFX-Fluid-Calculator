@@ -12,6 +12,7 @@ import android.webkit.WebChromeClient
 import android.webkit.WebResourceRequest
 import android.webkit.WebSettings
 import android.webkit.WebView
+import android.webkit.JavascriptInterface
 import android.webkit.WebViewClient
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -22,6 +23,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var webView: WebView
     private lateinit var progressBar: ProgressBar
+
+    // Keep a reference for printing (must not be garbage collected)
+    private var printWebView: WebView? = null
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,8 +42,42 @@ class MainActivity : AppCompatActivity() {
             showNoInternetDialog()
         }
 
+        // Add JavaScript interface for printing
+        webView.addJavascriptInterface(WebAppInterface(), "AndroidPrint")
+
         // Load the calculator from assets
         webView.loadUrl("file:///android_asset/SFX_Fluid_Calculator.html")
+    }
+
+    // JavaScript interface for print functionality
+    inner class WebAppInterface {
+        @JavascriptInterface
+        fun print() {
+            runOnUiThread {
+                printDocument()
+            }
+        }
+    }
+
+    // Print the current WebView content
+    private fun printDocument() {
+        val printManager = getSystemService(Context.PRINT_SERVICE) as PrintManager
+        val jobName = "${getString(R.string.app_name)} Report"
+
+        // Prepare the print view by calling JavaScript
+        webView.evaluateJavascript("if(typeof preparePrintView === 'function') preparePrintView();", null)
+
+        // Create print adapter from the WebView
+        val printAdapter = webView.createPrintDocumentAdapter(jobName)
+
+        // Set print attributes
+        val printAttributes = PrintAttributes.Builder()
+            .setMediaSize(PrintAttributes.MediaSize.ISO_A4)
+            .setMinMargins(PrintAttributes.Margins.NO_MARGINS)
+            .build()
+
+        // Start the print job
+        printManager.print(jobName, printAdapter, printAttributes)
     }
 
     @SuppressLint("SetJavaScriptEnabled")
